@@ -17,6 +17,7 @@
       color: #0d1b2a;
     }
 
+    /* ==== Ícones ==== */
     .icon-circle {
       display: inline-flex;
       align-items: center;
@@ -42,6 +43,7 @@
 
     p {
       color: #555;
+      margin-bottom: 0;
     }
 
     /* ===== NAVBAR ===== */
@@ -60,11 +62,26 @@
       color: #007bff;
     }
 
-    /* Item ativo (página atual) */
     .nav-link.active {
       color: #007bff;
       border-bottom: 2px solid #007bff;
     }
+
+    /* ==== Caixas (Cards) ==== */
+    .step-card {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      padding: 30px 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      height: 100%;
+    }
+
+    .step-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
   </style>
 </head>
 
@@ -89,69 +106,84 @@
     <p class="text-center text-secondary mb-5">Pipeline de análise em dados de exoma para genômica humana. (2025/2)</p>
 
     <div class="row g-4">
-
-      <!-- Arquivo FASTA -->
+      <!-- 1 -->
       <div class="col-md-4 text-center">
-        <div class="icon-circle">🧬</div>
-        <h5><a href="fastq.html" class="text-decoration-none">1. Arquivo FASTQ</a></h5>
-        <p>Estrutura e formato do arquivo que armazena sequências biológicas.</p>
+        <div class="step-card">
+          <div class="icon-circle">🧬</div>
+          <h5><a href="fastq.html">1. Arquivo FASTQ</a></h5>
+          <p>Estrutura e formato do arquivo que armazena sequências biológicas.</p>
+        </div>
       </div>
 
-      <!-- Controle de Qualidade -->
+      <!-- 2 -->
       <div class="col-md-4 text-center">
-        <div class="icon-circle">🧪</div>
-        <h5><a href="qc.html" class="text-decoration-none">2. Controle de Qualidade</a></h5>
-        <p>QC dos arquivos FASTQ.</p>
+        <div class="step-card">
+          <div class="icon-circle">🧪</div>
+          <h5><a href="qc.html">2. Controle de Qualidade</a></h5>
+          <p>QC dos arquivos FASTQ.</p>
+        </div>
       </div>
 
-      <!-- Trimagem -->
+      <!-- 3 -->
       <div class="col-md-4 text-center">
-        <div class="icon-circle">✂️</div>
-        <h5><a href="trimagem.html" class="text-decoration-none">3. Trimagem</a></h5>
-        <p>Remoção de adaptadores e bases de baixa qualidade.</p>
+        <div class="step-card">
+          <div class="icon-circle">✂️</div>
+          <h5><a href="trimagem.html">3. Trimagem</a></h5>
+          <p>Remoção de adaptadores e bases de baixa qualidade.</p>
+        </div>
       </div>
 
-      <!-- Alinhamento -->
+      <!-- 4 -->
       <div class="col-md-4 text-center">
-        <div class="icon-circle">📌</div>
-        <h5><a href="alinhamento.html" class="text-decoration-none">4. Alinhamento</a></h5>
-        <p>Mapeamento das leituras contra o genoma de referência.</p>
+        <div class="step-card">
+          <div class="icon-circle">📌</div>
+          <h5><a href="alinhamento.html">4. Alinhamento</a></h5>
+          <p>Mapeamento das leituras contra o genoma de referência.</p>
+        </div>
       </div>
 
-      <!-- Boas Práticas -->
+      <!-- 5 -->
       <div class="col-md-4 text-center">
-        <div class="icon-circle">✅</div>
-        <h5><a href="variantes.html" class="text-decoration-none">5. Boas práticas</a></h5>
-        <p>Práticas aplicadas às amostras que asseguram a identificação precisa e confiável das variantes genéticas.</p>
+        <div class="step-card">
+          <div class="icon-circle">✅</div>
+          <h5><a href="variantes.html">5. Boas práticas</a></h5>
+          <p>Práticas aplicadas às amostras que asseguram a identificação precisa e confiável das variantes genéticas.</p>
+        </div>
       </div>
-      
-      <!-- Chamada de Variantes -->
+
+      <!-- 6 -->
       <div class="col-md-4 text-center">
-        <div class="icon-circle">🔎</div>
-        <h5><a href="variantes.html" class="text-decoration-none">6. Chamada de Variantes</a></h5>
-        <p>Identificação de SNVs e indels nas amostras.</p>
+        <div class="step-card">
+          <div class="icon-circle">🔎</div>
+          <h5><a href="variantes.html">6. Chamada de Variantes</a></h5>
+          <p>Identificação de SNVs e indels nas amostras.</p>
+        </div>
       </div>
     </div>
-    
-    <div class="row justify-content-center mt-5">
-    <!-- Caixa 7 -->
-    <div class="col-md-4 text-center">
-      <div class="icon-circle">📑</div>
-      <h5>7. Anotação de Variantes</h5>
-      <p>Enriquecimento funcional das variantes.</p>
-    </div>
 
-    <!-- Caixa 8 -->
-    <div class="col-md-4 text-center">
-      <div class="icon-circle">📊</div>
-      <h5>8. Análises</h5>
-      <p>Exploração estatística e interpretação biológica dos resultados.</p>
+    <!-- Linha final -->
+    <div class="row justify-content-center mt-5 g-4">
+      <div class="col-md-4 text-center">
+        <div class="step-card">
+          <div class="icon-circle">📑</div>
+          <h5>7. Anotação de Variantes</h5>
+          <p>Enriquecimento funcional das variantes.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <div class="step-card">
+          <div class="icon-circle">📊</div>
+          <h5>8. Análises</h5>
+          <p>Exploração estatística e interpretação biológica dos resultados.</p>
+        </div>
+      </div>
     </div>
-  </div>
   </section>
-
 </body>
 </html>
+
+
 
 
 
