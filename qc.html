@@ -99,7 +99,7 @@
         <img 
           src="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc.png"
           alt="Arquivo html do FastQC"
-          style="margin-bottom: 20px;"
+          style="margin-bottom: 30px;"
           class="img-fluid img-example">
         <ul class="card-text">
            <li><strong>Qualidade por Base (Per base sequence quality):</strong>
@@ -123,11 +123,23 @@
            <li><strong>Conteúdo de Bases N (N Content):</strong>
             Indica a porcentagem de bases “N”, ou seja, bases não identificadas em cada posição. Um alto percentual de Ns pode apontar problemas de leitura durante o sequenciamento.</li><br>
 
-          Cada métrica recebe um status <strong>(Normal, Aviso ou Falha)</strong>, facilitando a identificação rápida de possíveis problemas na qualidade das amostras.
+         💡Cada métrica recebe um status <strong>(Normal, Aviso ou Falha)</strong>, facilitando a identificação rápida de possíveis problemas na qualidade das amostras.
         </ul>
       </div>
     </div>
-
+    
+   <!-- Bloco MultiQC -->
+    <div class="card p-4">
+      <div class="card-body">
+        <h3 class="card-title">MultiQC</h3>
+        <p class="card-text">
+          Ferramenta essencial para analisar e visualizar resultados de controle de qualidade de centenas ou milhares de amostras de forma conjunta.
+        </p>
+        <h5 class="card-title">Como funciona:</h5>
+        <p class="card-text">
+          O MultiQC combina relatórios de diferentes ferramentas (como FastQC e Cutadapt) ou de diversas amostras em um único relatório interativo em HTML, permitindo fazer uma análise comparativa de múltiplas amostras de forma rápida e identificar problemas com facilidade.
+        </p>
+        
     <!-- Caixa da Prática 2 -->
     <div class="practice-box card mt-4 shadow-sm border-0">
       <a href="praticas.html#pratica2">
