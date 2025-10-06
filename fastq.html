@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FASTQ</title>
 
-  <!-- Importa o CSS do Bootstrap -->
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
@@ -13,13 +13,60 @@
       background-color: #f8f9fa;
       color: #212529;
       padding: 40px;
+      font-family: "Inter", sans-serif;
     }
+
     h1 {
       margin-bottom: 30px;
       text-align: center;
+      font-weight: 700;
+      color: #0d1b2a;
     }
+
     .card {
       margin-bottom: 20px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      color: #0d1b2a;
+      font-weight: 600;
+    }
+
+    .img-example {
+      margin-top: 15px;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+    }
+
+    /* Caixa da Prática 1 */
+    .practice-box {
+      transition: all 0.2s ease;
+      border-radius: 12px;
+    }
+
+    .practice-box a {
+      text-decoration: none;
+      color: #212529;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      font-weight: 600;
+    }
+
+    .practice-box:hover {
+      background-color: #e9f2ff;
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(0, 102, 255, 0.2);
+    }
+
+    .practice-box:hover span:last-child {
+      transform: translateX(5px);
+      transition: transform 0.2s ease;
+      color: #007bff;
     }
   </style>
 </head>
@@ -28,43 +75,47 @@
   <div class="container">
     <h1>🧬 Arquivos FASTQ</h1>
 
-    <div class="card">
+    <!-- Bloco FASTQ -->
+    <div class="card p-4">
       <div class="card-body">
         <h3 class="card-title">FASTQ</h3>
         <p class="card-text">
-          Um arquivo <strong>FASTQ</strong> é um formato de texto utilizado para armazenar sequências biológicas obtidas por sequenciamento (como em NGS), junto com as pontuações de qualidade associadas a cada base. É o formato padrão para dados brutos de sequenciamento.<br>
+          Um arquivo <strong>FASTQ</strong> é um formato de texto utilizado para armazenar sequências biológicas obtidas por sequenciamento (como em NGS), junto com as pontuações de qualidade associadas a cada base. É o formato padrão para dados brutos de sequenciamento.<br><br>
           Cada entrada ocupa quatro linhas:<br>
-          1 - Identificador (header): Linha inicia com "<code>@</code>" seguido por um ID único da leitura.<br> 
-          2 - Sequência de nucleotídeos: Contém a sequência de nucleotídeos (A, T, C, G e N para bases incertas).<br> 
-          3 - Separador: Linha começa com "<code>+</code>". É usada apenas para separar a sequência da linha de qualidade.<br> 
-          4 - Linha de valores de qualidade: Contém a pontuação de qualidade Phred (em código ASCII) atribuída a cada base da sequência correspondente. Quanto maior a pontuação, maior é a confiança na identificação daquela base.
+          <strong>1.</strong> Identificador (header): linha inicia com "<code>@</code>" seguido por um ID único da leitura.<br>
+          <strong>2.</strong> Sequência de nucleotídeos: contém a sequência de bases (A, T, C, G e N para bases incertas).<br>
+          <strong>3.</strong> Separador: linha começa com "<code>+</code>", usada apenas para separar a sequência da linha de qualidade.<br>
+          <strong>4.</strong> Linha de valores de qualidade: contém a pontuação de qualidade Phred (em código ASCII) atribuída a cada base da sequência correspondente. Quanto maior a pontuação, maior é a confiança na identificação daquela base.
         </p>
-        <!-- Imagem do exemplo FASTQ -->
-        <img src="https://www.researchgate.net/profile/Guilherme-Garbino/publication/343893376/figure/fig2/AS:928884652507138@1598474767588/Figura-34-Estrutura-de-um-arquivo-FASTQ-As-linhas-iniciadas-por-correspondem-as.png"
-             alt="Exemplo de arquivo FASTQ"
-             class="img-fluid img-example">
+        <img 
+          src="https://www.researchgate.net/profile/Guilherme-Garbino/publication/343893376/figure/fig2/AS:928884652507138@1598474767588/Figura-34-Estrutura-de-um-arquivo-FASTQ-As-linhas-iniciadas-por-correspondem-as.png"
+          alt="Exemplo de arquivo FASTQ"
+          class="img-fluid img-example">
       </div>
     </div>
-  
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title">Código ASCII</h3>
-          <p class="card-text">
-            O FASTQ não grava números diretamente (como Pherd Score 30 ou 40), mas sim caracteres ASCII que representam esses números. Isso economiza espaço e facilita a leitura por programas. Cada caractere ASCII tem um valor numérico associado.
-          </p>
-        <!-- Imagem do exemplo do código -->
-        <img src="https://www.drive5.com/usearch/manual7/qscores.gif"
-             alt="Tabela com o código ASCII"
-             class="img-fluid img-example">
-        </div>
+
+    <!-- Bloco ASCII -->
+    <div class="card p-4">
+      <div class="card-body">
+        <h3 class="card-title">Código ASCII</h3>
+        <p class="card-text">
+          O FASTQ não grava números diretamente (como o Phred Score 30 ou 40), mas sim caracteres ASCII que representam esses valores. Isso economiza espaço e facilita a leitura por programas. Cada caractere ASCII tem um valor numérico associado.
+        </p>
+        <img 
+          src="https://www.drive5.com/usearch/manual7/qscores.gif"
+          alt="Tabela com o código ASCII"
+          class="img-fluid img-example">
       </div>
-    <!-- Caixa de navegação para a prática -->
-    <div class="card mt-4 shadow-sm border-0">
-      <a href="pratica1.html" class="d-flex justify-content-between align-items-center p-3 text-decoration-none text-dark">
-        <span class="fw-semibold">Prática 1</span>
-        <span style="font-size: 1.3rem;">➜</span>
+    </div>
+
+    <!-- Caixa da Prática 1 -->
+    <div class="practice-box card mt-4 shadow-sm border-0">
+      <a href="praticas.html#pratica1">
+        <span>🧪 Prática 1</span>
+        <span style="font-size: 1.4rem;">➜</span>
       </a>
     </div>
-  </div>  
+  </div>
 </body>
 </html>
+
