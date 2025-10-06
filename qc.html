@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QC</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      color: #212529;
+      padding: 40px;
+      font-family: "Inter", sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      text-align: center;
+      font-weight: 700;
+      color: #0d1b2a;
+    }
+
+    .card {
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      color: #0d1b2a;
+      font-weight: 600;
+    }
+
+    .img-example {
+      margin-top: 15px;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+    }
+
+    /* Caixa da Prática 1 */
+    .practice-box {
+      transition: all 0.2s ease;
+      border-radius: 12px;
+    }
+
+    .practice-box a {
+      text-decoration: none;
+      color: #212529;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      font-weight: 600;
+    }
+
+    .practice-box:hover {
+      background-color: #e9f2ff;
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(0, 102, 255, 0.2);
+    }
+
+    .practice-box:hover span:last-child {
+      transform: translateX(5px);
+      transition: transform 0.2s ease;
+      color: #007bff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Controle de Qualidade (QC)</h1>
+
+    <!-- Bloco FASTQ -->
+    <div class="card p-4">
+      <div class="card-body">
+        <h3 class="card-title">Definição</h3>
+        <p class="card-text">
+          O controle de qualidade (QC, Quality Control) é o procedimento utilizado para garantir a confiabilidade, precisão e consistência dos dados obtidos em um experimento. Na bioinformática, essa etapa consiste em avaliar se as leituras de sequenciamento estão isentas de erros, contaminantes ou artefatos técnicos que possam comprometer a interpretação e a validade das análises subsequentes.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bloco ferramenta -->
+    <div class="card p-4">
+      <div class="card-body">
+        <h3 class="card-title">FastQC</h3>
+        <p class="card-text">
+          O FastQC é uma ferramenta fundamental para a avaliação inicial da qualidade de arquivos FASTQ. Ela produz um relatório detalhado com diversas métricas sobre as leituras brutas, permitindo detectar possíveis falhas ou inconsistências nos dados antes das etapas de análise subsequentes.
+        </p>
+        <h5 class="card-title">Como funciona:</h5>
+        <p class="card-text">
+          O FastQC, ao processar um arquivo FASTQ, produz um relatório em formato HTML contendo gráficos e tabelas que representam os resultados de diversas métricas de qualidade, incluindo:
+        </p>
+        <img 
+          src="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc.png"
+          alt="Arquivo html do FastQC"
+          class="img-fluid img-example">
+        <p class="card-text">
+          **Qualidade por Base (Per base sequence quality):**
+            Exibe a distribuição das pontuações de qualidade Phred em cada posição das leituras. É comum observar uma queda de qualidade nas posições finais, o que deve ser monitorado com atenção.
+
+          **Qualidade por Leitura (Per sequence quality scores):""
+            Mostra a distribuição das pontuações médias de qualidade de todas as leituras, ajudando a identificar se há uma proporção significativa de leituras com baixa qualidade geral.
+
+          **Conteúdo de GC por Posição (Per base GC content):**
+            Apresenta a porcentagem de bases Guanina (G) e Citosina (C) em cada posição da leitura. Desvios acentuados do padrão esperado (com base no organismo) podem indicar contaminação ou viés de sequenciamento.
+
+          **Conteúdo de GC por Sequência (Per sequence GC content):**
+            Mostra a distribuição do conteúdo médio de GC entre todas as leituras analisadas.
+
+          **Níveis de Duplicação de Sequência (Sequence Duplication Levels):**
+            Avalia a proporção de leituras duplicadas, o que pode indicar super-amplificação por PCR ou baixa complexidade da biblioteca.
+
+          **Conteúdo de Adaptadores (Adapter Content):**
+            Detecta a presença de sequências de adaptadores de sequenciamento, que devem ser removidas durante o pré-processamento dos dados.
+
+          **Conteúdo de Bases N (N Content):**
+            Indica a porcentagem de bases “N”, ou seja, bases não identificadas em cada posição. Um alto percentual de Ns pode apontar problemas de leitura durante o sequenciamento.
+
+          Cada métrica recebe um status **(Normal, Aviso ou Falha)**, facilitando a identificação rápida de possíveis problemas na qualidade das amostras.
+        </p>
+      </div>
+    </div>
+
+    <!-- Caixa da Prática 1 -->
+    <div class="practice-box card mt-4 shadow-sm border-0">
+      <a href="praticas.html#pratica1">
+        <span>Prática 1</span>
+        <span style="font-size: 1.4rem;">➜</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
