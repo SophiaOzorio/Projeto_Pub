@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QC</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      color: #212529;
+      padding: 40px;
+      font-family: "Inter", sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      text-align: center;
+      font-weight: 700;
+      color: #0d1b2a;
+    }
+
+    .card {
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      color: #0d1b2a;
+      font-weight: 600;
+    }
+
+    .img-example {
+      margin-top: 15px;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+    }
+
+    /* Caixa da Prática 1 */
+    .practice-box {
+      transition: all 0.2s ease;
+      border-radius: 12px;
+    }
+
+    .practice-box a {
+      text-decoration: none;
+      color: #212529;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      font-weight: 600;
+    }
+
+    .practice-box:hover {
+      background-color: #e9f2ff;
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(0, 102, 255, 0.2);
+    }
+
+    .practice-box:hover span:last-child {
+      transform: translateX(5px);
+      transition: transform 0.2s ease;
+      color: #007bff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>📌 Alinhamento</h1>
+
+    <!-- Bloco FASTQ -->
+    <div class="card p-4">
+      <div class="card-body">
+        <h3 class="card-title">Definição</h3>
+        <p class="card-text">
+          O alinhamento com o genoma de referência é o processo de comparar e posicionar as leituras de sequenciamento de uma amostra em relação a uma sequência genômica conhecida, chamada genoma de referência (exemplo: GRCh38), com o objetivo de determinar a origem de cada leitura e identificar variações genéticas, como mutações, inserções ou deleções.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bloco BWA-MEM -->
+    <div class="card p-4">
+      <div class="card-body">
+        <h3 class="card-title">BWA-MEM</h3>
+        <p class="card-text">
+          BWA-MEM é um algoritmo do BWA (Burrows-Wheeler Aligner) usado para alinhamento de leituras de DNA ou RNA contra um genoma de referência, eficiente para leituras longas e identificação de variantes genéticas. Ele produz arquivos SAM/BAM, que indicam onde cada leitura se alinha no genoma, incluindo inserções, deleções e mismatches.        
+        </p>
+      </div>
+    </div>
+    
+   <!-- Bloco MultiQC -->
+    <div class="card p-4">
+      <div class="card-body">
+        <h3 class="card-title">Outras ferramentas:</h3>
+          <ul class="card-text">
+            <strong>Bowtie/Bowtie2:</strong>
+              <li>Ferramenta rápida e eficiente para alinhamento de leituras curtas.</li>
+              <li>Bowtie2 suporta leituras mais longas e gaps.</li>
+           <strong>STAR (Spliced Transcripts Alignment to a Reference):</strong>
+             <li>Especializada em RNA-Seq, reconhece splice junctions.</li>
+           <strong>Minimap2:</strong>
+            <li>Ótima para leituras longas (PacBio, Oxford Nanopore) e também suporta DNA e RNA.</li>
+          </ul>
+        </div>
+    </div>
+        
+    <!-- Caixa da Prática 2 -->
+    <div class="practice-box card mt-4 shadow-sm border-0">
+      <a href="praticas.html#pratica4">
+        <span>Prática 4</span>
+        <span style="font-size: 1.4rem;">➜</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
