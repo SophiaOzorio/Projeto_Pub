@@ -45,17 +45,29 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
       padding: 30px 20px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-       /* ocupa quase toda a largura */
       width: 80vw;          /* 80% da largura da tela */
-      max-width: 1800px;    /* opcional: limita em monitores muito grandes */
-      margin: 20px auto;    /* centraliza e dá espaçamento vertical */
-      height: auto;         /* altura ajustável ao conteúdo */
-      text-align: center;
+      max-width: 1800px;    /* evita exagero em telas grandes */
+      margin: 20px auto;    /* centraliza e dá espaçamento */
+      height: auto;
+      text-align: center;   /* mantém título e parágrafos centralizados */
     }
 
     .step-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Lista das metas — alinhada à esquerda dentro do card */
+    .metas-list {
+      text-align: left;
+      display: inline-block; /* mantém largura proporcional e evita mover o card */
+      margin: 0 auto;
+      padding-left: 1.2rem;
+      color: #333;
+    }
+
+    .metas-list li {
+      margin-bottom: 8px;
     }
 
   </style>
@@ -85,29 +97,26 @@
     <h1 class="text-center fw-bold mb-4">Aprendizagem Baseada em Projetos aplicada ao ensino de graduação</h1>
     
     <!-- Objetivos -->
-    <div class="col-md-4 text-center">
-      <div class="step-card">
-        <h4 class="fw-bold mb-4">Objetivo</h4><br>
-        <p class="text-card">
-          Desenvolver um projeto piloto de aprendizagem baseada em projetos voltado à resolução de um problema de pesquisa real.
-        </p>
-      </div>
-    </div>
-    <!-- Metas -->
-    <div class="col-md-4 text-center">
-      <div class="step-card">
-        <h4 class="fw-bold mb-4">Metas</h4>
-          <ul class="metas-list">
-            <li>Capacitar os estudantes a desenvolver competências analíticas e investigativas</li>
-            <li>Promover a identificação de mutações com potencial para validação experimental</li>
-            <li>Integrar teoria e prática científica em um contexto real de pesquisa</li>
-            <li>Aplicar os conhecimentos adquiridos à pesquisa translacional, aproximando o aprendizado da prática científica.</li>
-          </ul>
-      </div>
+    <div class="step-card">
+      <h4 class="fw-bold mb-4">Objetivo</h4>
+      <p>Desenvolver um projeto piloto de aprendizagem baseada em projetos voltado à resolução de um problema de pesquisa real.</p>
     </div>
 
+    <!-- Metas -->
+    <div class="step-card">
+      <h4 class="fw-bold mb-4">Metas</h4>
+      <ul class="metas-list">
+        <li>Capacitar os estudantes a desenvolver competências analíticas e investigativas</li>
+        <li>Promover a identificação de mutações com potencial para validação experimental</li>
+        <li>Integrar teoria e prática científica em um contexto real de pesquisa</li>
+        <li>Aplicar os conhecimentos adquiridos à pesquisa translacional, aproximando o aprendizado da prática científica</li>
+      </ul>
+    </div>
   </section>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 </body>
+</html>
+
