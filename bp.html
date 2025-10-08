@@ -90,9 +90,8 @@
       <div class="card-body">
         <h3 class="card-title">Etapas realizadas antes da chamada de variantes:</h3>
         <ul class="card-text">
-          <li><strong>Marcação de duplicatas:</strong> identificar e marcar leituras duplicadas (ex.: MarkDuplicates do Picard).</li>
-          <li><strong>Correção de base (BQSR):</strong> recalibrar a qualidade das bases com <strong>BaseRecalibrator</strong> e <strong>ApplyBQSR</strong>, usando bancos de variantes conhecidos (ex.: dbSNP, 1000G).
-        </ul>
+          <li><strong>Marcação de duplicatas:</strong> detecta leituras duplicadas geradas por PCR ou sequenciamento e as marca no arquivo BAM, evitando que influenciem a identificação de variantes. (ex.: MarkDuplicates do Picard).</li>
+          <li><strong>Correção de base (BQSR):</strong> Ajusta as pontuações de qualidade das bases, com as ferramentas <strong>BaseRecalibrator</strong> e <strong>ApplyBQSR</strong>, comparando com bancos de variantes conhecidos (ex.: dbSNP, 1000 Genomes), reduzindo erros sistemáticos e melhorando a precisão das análises.</li>
         <img 
           src="https://gatk.broadinstitute.org/hc/theming_assets/01HZPKW2HXTR2JFMVD55S4VNTY"
           alt="GATK Best Practices"
