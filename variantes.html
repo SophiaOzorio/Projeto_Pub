@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chamada de Variantes</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      color: #212529;
+      padding: 40px;
+      font-family: "Inter", sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      text-align: center;
+      font-weight: 700;
+      color: #0d1b2a;
+    }
+
+    .card {
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      color: #0d1b2a;
+      font-weight: 600;
+    }
+
+    .img-example {
+      margin-top: 15px;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+    }
+
+    /* Caixa da Prática 1 */
+    .practice-box {
+      transition: all 0.2s ease;
+      border-radius: 12px;
+    }
+
+    .practice-box a {
+      text-decoration: none;
+      color: #212529;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      font-weight: 600;
+    }
+
+    .practice-box:hover {
+      background-color: #e9f2ff;
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(0, 102, 255, 0.2);
+    }
+
+    .practice-box:hover span:last-child {
+      transform: translateX(5px);
+      transition: transform 0.2s ease;
+      color: #007bff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>🔎 Chamada de Variantes</h1>
+
+    <!-- Bloco definição-->
+    <div class="card p-4">
+      <div class="card-body">
+        <h3 class="card-title">Definição</h3>
+        <p class="card-text">
+          Chamada de variantes é o processo de identificar alterações genéticas (como SNPs, inserções e deleções) em relação a um genoma de referência. Essa etapa é fundamental para detectar mutações e compreender doenças genéticas.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bloco haplatypecaller -->
+    <div class="card p-4">
+      <div class="card-body">
+        <h3 class="card-title">HaplotypeCaller GATK</h3>
+        <p class="card-text">
+          HaplotypeCaller é uma ferramenta do GATK (Genome Analysis Toolkit) que identifica variantes genéticas, como SNPs e indels, comparando os dados de sequenciamento com o genoma de referência. Sua saída é um arquivo VCF (Variant Call Format) que registra todas as variantes encontradas.
+        </p>
+        <h5 class="card-title">Como interpretar:</h5>
+        <p class="card-text">
+          O arquivo de saída da ferramenta, o VCF, é o formato padrão para armazenar informações sobre variantes genéticas (SNPs, INDELs e outras).
+        </p>
+        <img 
+          src="https://davetang.github.io/learning_vcf_file/img/vcf_format.png"
+          alt="Arquivo VCF"
+          class="img-fluid mx-auto d-block mb-3 img-example">
+        <h5 class="card-title">Colunas essenciais do VCF:</h5>
+        <ul class="card-text">
+           <li><strong>CHROM:</strong>
+             Cromossomo onde a variante está localizada.</li>
+           <li><strong>POS:</strong>
+             Posição inicial da variante no cromossomo.</li>
+           <li><strong>ID:</strong>
+            Identificador da variante (ex.: rsID do dbSNP, se disponível).</li>
+           <li><strong>REF:</strong>
+             Alelo de referência na posição.</li>
+           <li><strong>ALT:</strong>
+             Alelo(s) alternativo(s) observado(s).</li>
+           <li><strong>QUAL:</strong>
+             Score de qualidade Phred da chamada da variante.</li>
+           <li><strong>FILTER:</strong>
+             Indica se a variante passou pelos filtros de qualidade.</li>
+          <li><strong>INFO:</strong>
+              Informações adicionais sobre a variante, como anotações funcionais e métricas de qualidade.</li>
+          <li><strong>FORMAT:</strong>
+             Define a ordem e o tipo de dados para cada amostra.</li>
+          <li><strong>Colunas de amostras:</strong>
+             Contêm os genótipos e outros dados específicos de cada amostra.</li>
+        </ul>
+        <h5 class="card-title">Interpretação dos genótipos:</h5>
+        <ul class="card-text">
+          <li><strong>0/0:</strong>
+            Homozigoto para o alelo de referência.</li>
+          <li><strong>0/1:</strong>
+            Heterozigoto (um alelo de referência e um alternativo).</li>
+          <li><strong>1/1:</strong>
+            Homozigoto para o alelo alternativo.</li>
+          <li><strong>./.:</strong>
+            Genótipo não chamado (leituras insuficientes ou de baixa qualidade).</li>
+        </ul>
+        <h5 class="card-title">Campo INFO:</h5>
+        <p>Contém anotações detalhadas sobre cada variante, incluindo:</p>
+        <ul class="card-text">
+          <li><strong>QD (Quality by Depth):</strong>
+            Score de qualidade normalizado pela profundidade de cobertura.</li>
+          <li><strong>FS (FisherStrand):</strong>
+            Score que indica viés de strand.</li>
+          <li><strong>MQ (MappingQuality):</strong>
+            Qualidade do mapeamento das leituras que suportam a variante.</li>
+        </ul>
+
+      </div>
+    </div>
+    
+    <!-- Caixa da atividade 8 -->
+    <div class="practice-box card mt-4 shadow-sm border-0">
+      <a href="praticas.html#atividade8">
+        <span>Atividade 8</span>
+        <span style="font-size: 1.4rem;">➜</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
