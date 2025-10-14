@@ -188,7 +188,7 @@
         <div id="collapseAtividade3" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
           <div class="accordion-body">
             <p><strong>Objetivo:</strong> Baixar os dados necessários para o projeto.</p>
-            <p><strong>Tarefa:</strong>Com base nos dados encontrados durante a busca literária, acesse o banco onde os mesmos foram disponibilizados, encontre o código <strong>SRA</strong> e execute o seguinte código para baixar:</p>
+            <p><strong>Tarefa:</strong> Com base nos dados encontrados durante a busca literária, acesse o banco onde os mesmos foram disponibilizados, encontre o código <strong>SRA</strong> e execute o seguinte comando para baixar:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
               <pre><code>CAMINHO/PARA/O/EXECUTÁVEL/prefetch SRRXXXXXX SRRYYYYYY SRRZZZZZZ</code></pre>
@@ -202,12 +202,12 @@
                   setTimeout(() => button.innerText = '📋', 1500);
                 });
               }
-            </script>
-            <p><strong>Tarefa:</strong>Após baixar os dados .SRA, é necessário transformá-los para o formato <strong>FASTQ</strong>. Para isso, use o seguinte comando (para dados paired-end):</p>
-            <p><strong>💡</strong> Caso suas amostras sejam single-end não usar o parâmetro "--splites-files"</p>
+            </script><br><br>
+            <p><strong>Tarefa:</strong> Após baixar os dados .SRA, é necessário transformá-los para o formato <strong>FASTQ</strong>. Para isso, use o seguinte comando (para dados paired-end):</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
               <pre><code>CAMINHO/PARA/O/EXECUTÁVELfastq-dump --splites-files --progress --outdir CAMINHO/DE/SAIDA/DOS/ARQUIVOS/GERADOS</code></pre>
+              <p><strong>💡</strong> Caso suas amostras sejam single-end não usar o parâmetro "--splites-files"</p>
             </div>
 
             <script>
@@ -356,6 +356,7 @@
   </script>
 </body>
 </html>
+
 
 
 
