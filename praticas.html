@@ -106,14 +106,14 @@
           <button class="accordion-button fw-semibold collapsed" type="button"
                   data-bs-toggle="collapse" data-bs-target="#collapseAtividade1"
                   aria-expanded="false" aria-controls="collapseAtividade1">
-            Atividade 1 — Download dos dados
+            Atividade 1 — Definição do Problema
           </button>
         </h2>
         <div id="collapseAtividade1" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
           <div class="accordion-body">
-            <p><strong>Objetivo:</strong> Baixar os dados necessários para o projeto.</p>
+            <p><strong>Objetivo:</strong> Iniciar o desenvolvimento do projeto. Aqui, você irá estruturar a base do estudo, identificando o que será investigado.</p> 
             <p>Os alunos deverão escolher o tema de estudo e buscar amostras em bases de dados de exoma.</p>
-            <p>Alguns bancos de dados: NCBI, ENSEMBL, UCSC Genome Browser, TCGA e GEO. Links estão na aba "Referências".</p>
+            <p><strong>Pergunta Norteadora:</strong>Quais genes estão relacionados ao desenvolvimento do câncer de mama hereditário? (Se o aluno já estiver investigando outra doença, a análise pode ser adaptada para o tema escolhido.)</p>
           </div>
         </div>
       </div>
@@ -124,13 +124,24 @@
           <button class="accordion-button fw-semibold collapsed" type="button"
                   data-bs-toggle="collapse" data-bs-target="#collapseAtividade2"
                   aria-expanded="false" aria-controls="collapseAtividade2">
-            Atividade 2 — Controle de qualidade
+            Atividade 2 — Busca na Literatura
           </button>
         </h2>
         <div id="collapseAtividade2" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
           <div class="accordion-body">
-            <p><strong>Objetivo:</strong> Realizar o controle de qualidade das amostras baixadas.</p>
-            <p>Os alunos deverão utilizar a ferramenta FastQC para avaliar a qualidade das amostras.</p>
+            <p><strong>Objetivo:</strong> Realizar uma pesquisa bibliográfica sobre o tema do projeto para compreender o que já foi estudado, identificar lacunas e fundamentar cientificamente a proposta.</p>
+            <p><strong>Tarefa:</strong></p>
+            <ol>
+              <li>Busque artigos e revisões recentes (últimos 5 anos) em bases científicas como:  
+                <ul>
+                  <li><a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">PubMed</a></li>
+                  <li><a href="https://www.scielo.org/" target="_blank">SciELO</a></li>
+                  <li><a href="https://scholar.google.com/" target="_blank">Google Scholar</a></li>
+                </ul>
+               </li>
+              <li>Elabore um parágrafo integrando os achados e explicando como eles contribuem para o desenvolvimento do seu projeto.</li>
+            </ol>
+            <p><strong>💡 Dica:</strong> Aproveite para buscar estudos que adotem metodologias semelhantes à do seu projeto (como a análise de exoma germinativo) e que disponibilizem seus dados em bancos públicos de acesso aberto.</p>
           </div>
         </div>
       </div>
@@ -141,7 +152,7 @@
           <button class="accordion-button fw-semibold collapsed" type="button"
                   data-bs-toggle="collapse" data-bs-target="#collapseAtividade3"
                   aria-expanded="false" aria-controls="collapseAtividade3">
-            Atividade 3 — Trimagem
+            Atividade 3 — Download dos Dados
           </button>
         </h2>
         <div id="collapseAtividade3" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
@@ -158,7 +169,7 @@
           <button class="accordion-button fw-semibold collapsed" type="button"
                   data-bs-toggle="collapse" data-bs-target="#collapseAtividade4"
                   aria-expanded="false" aria-controls="collapseAtividade4">
-            Atividade 4 — Alinhamento
+            Atividade 4 — Controle de Qualidade
           </button>
         </h2>
         <div id="collapseAtividade4" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
@@ -174,7 +185,7 @@
           <button class="accordion-button fw-semibold collapsed" type="button"
                   data-bs-toggle="collapse" data-bs-target="#collapseAtividade5"
                   aria-expanded="false" aria-controls="collapseAtividade5">
-            Atividade 5 — Boas práticas GATK
+            Atividade 5 — Trimagem
           </button>
         </h2>
         <div id="collapseAtividade5" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
@@ -190,7 +201,7 @@
           <button class="accordion-button fw-semibold collapsed" type="button"
                   data-bs-toggle="collapse" data-bs-target="#collapseAtividade6"
                   aria-expanded="false" aria-controls="collapseAtividade6">
-            Atividade 6 — Chamada de variantes
+            Atividade 6 — Alinhamento
           </button>
         </h2>
         <div id="collapseAtividade6" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
@@ -206,7 +217,7 @@
           <button class="accordion-button fw-semibold collapsed" type="button"
                   data-bs-toggle="collapse" data-bs-target="#collapseAtividade7"
                   aria-expanded="false" aria-controls="collapseAtividade7">
-            Atividade 7 — Anotação das variantes
+            Atividade 7 — Boas Práticas GATK
           </button>
         </h2>
         <div id="collapseAtividade7" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
@@ -222,7 +233,7 @@
           <button class="accordion-button fw-semibold collapsed" type="button"
                   data-bs-toggle="collapse" data-bs-target="#collapseAtividade8"
                   aria-expanded="false" aria-controls="collapseAtividade8">
-            Atividade 8 — Análises
+            Atividade 8 — Chamada de Variantes
           </button>
         </h2>
         <div id="collapseAtividade8" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
@@ -231,7 +242,38 @@
           </div>
         </div>
       </div>
-
+      
+      <!-- Prática 9 -->
+      <div class="accordion-item border-0 shadow-sm rounded-3">
+        <h2 class="accordion-header">
+          <button class="accordion-button fw-semibold collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseAtividade9"
+                  aria-expanded="false" aria-controls="collapseAtividade9">
+            Atividade 9 — Anotação das Variantes
+          </button>
+        </h2>
+        <div id="collapseAtividade7" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
+          <div class="accordion-body">
+            <p><strong>Objetivo:</strong> Realizar a anotação funcional das variantes.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Prática 10 -->
+      <div class="accordion-item border-0 shadow-sm rounded-3">
+        <h2 class="accordion-header">
+          <button class="accordion-button fw-semibold collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseAtividade10"
+                  aria-expanded="false" aria-controls="collapseAtividade10">
+            Atividade 10 — Análises
+          </button>
+        </h2>
+        <div id="collapseAtividade7" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
+          <div class="accordion-body">
+            <p><strong>Objetivo:</strong> Realizar a anotação funcional das variantes.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -252,6 +294,7 @@
   </script>
 </body>
 </html>
+
 
 
 
