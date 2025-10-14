@@ -276,6 +276,40 @@
         </div>
       </div>
 
+
+      <!-- Prática 5 -->
+      <div class="accordion-item border-0 shadow-sm rounded-3">
+        <h2 class="accordion-header">
+          <button class="accordion-button fw-semibold collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseAtividade5"
+                  aria-expanded="false" aria-controls="collapseAtividade5">
+            Atividade 5 — Trimagem
+          </button>
+        </h2>
+        <div id="collapseAtividade5" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
+          <div class="accordion-body">
+            <p><strong>Objetivo:</strong> Efetuar a remoção dos adaptadores e o corte das bases de baixa qualidade, se necessário.</p>
+            <p><strong>Tarefa:</strong> </p>
+            <p><strong>1 - </strong>Após revisar os resultados do passo anterior, verifique se é necessário executar a trimagem para remover adaptadores e bases de baixa qualidade.</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">📋</button>
+              <pre><code>fastqc amostra_A_R1.fastq.gz amostra_A_R2.fastq.gz amostra_B_R1.fastq.gz amostra_B_R2.fastq.gz</code></pre>
+            </div>
+
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script>
+          </div>
+        </div>
+      </div>
+
+
       <!-- Prática 5 -->
       <div class="accordion-item border-0 shadow-sm rounded-3">
         <h2 class="accordion-header">
@@ -391,26 +425,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
