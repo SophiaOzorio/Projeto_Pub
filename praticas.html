@@ -69,6 +69,37 @@
     p {
       color: #555;
     }
+
+  .code-container {
+    background-color: #1e1e1e; /* fundo escuro */
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+    overflow-x: auto;
+    margin-top: 10px;
+  }
+
+  .code-container pre {
+    margin: 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    color: #e0e0e0;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .copy-btn:hover {
+    color: #ffffff;
+  }
   </style>
 </head>
 
@@ -157,8 +188,40 @@
         </h2>
         <div id="collapseAtividade3" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
           <div class="accordion-body">
-            <p><strong>Objetivo:</strong> Realizar a trimagem das amostras, se necessário.</p>
-            <p>Os alunos deverão remover sequências de baixa qualidade e adaptadores.</p>
+            <p><strong>Objetivo:</strong> Baixar os dados necessários para o projeto.</p>
+            <p><strong>Tarefa:</strong>Com base nos dados encontrados durante a busca literária, acesse o banco onde os mesmos foram disponibilizados, encontre o código <strong>SRA</strong> e execute o seguinte código para baixar:</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">📋</button>
+              <pre><code>CAMINHO/PARA/O/EXECUTÁVEL/prefetch SRRXXXXXX SRRYYYYYY SRRZZZZZZ</code></pre>
+            </div>
+
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script>
+            <p><strong>Tarefa:</strong>Após baixar os dados .SRA, é necessário transformá-los para o formato <strong>FASTQ</strong>. Para isso, use o seguinte comando (para dados paired-end):</p>
+            <p><strong>💡</strong> Caso suas amostras sejam single-end não usar o parâmetro "--splites-files"</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">📋</button>
+              <pre><code>CAMINHO/PARA/O/EXECUTÁVELfastq-dump --splites-files --progress --outdir CAMINHO/DE/SAIDA/DOS/ARQUIVOS/GERADOS</code></pre>
+            </div>
+
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script>
+
+            
           </div>
         </div>
       </div>
@@ -294,6 +357,7 @@
   </script>
 </body>
 </html>
+
 
 
 
