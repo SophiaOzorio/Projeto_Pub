@@ -220,8 +220,7 @@
                 });
               }
             </script>
-
-            
+            <p><strong>💡 Dica:</strong> Faça pastas separadas para armazenar os outputs de passo da pipeline!</p>
           </div>
         </div>
       </div>
@@ -237,7 +236,40 @@
         </h2>
         <div id="collapseAtividade4" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
           <div class="accordion-body">
-            <p><strong>Objetivo:</strong> Realizar o alinhamento das amostras com o genoma de referência.</p>
+            <p><strong>Objetivo:</strong> Realizar e analisar o controle de qualidade das amostras baixadas no passo anterior.</p>
+            <p><strong>Tarefa:</strong> </p>
+            <p><strong>1 - </strong>Tendo os arquivos FASTQ das amostras selecionadas, utilizaremos a ferramenta FastQC, para gerar os relatórios de controle de qualidade, executando o seguinte comando:</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">📋</button>
+              <pre><code>fastqc amostra_A_R1.fastq.gz amostra_A_R2.fastq.gz amostra_B_R1.fastq.gz amostra_B_R2.fastq.gz</code></pre>
+            </div>
+
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script><br><br>
+            <p><strong>2 -</strong> Após realizar o controle de qualodade com a ferramenta FastQC, utilizaremos a ferramenta MultiQC para integrar os rsultados de todas as amostras em somente um gráfico. Para isso, execute o seguinte comando:</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">📋</button>
+              <pre><code>multiqc .</code></pre>
+              <p>#Vá para o diretório que contém os arquivos que você deseja analisar com o MultiQC.</p>
+              <p>#A entrada será os arquivos gerados pelo FastQC ".fastq.gz"</p>
+            </div>
+
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script>
           </div>
         </div>
       </div>
@@ -357,6 +389,7 @@
   </script>
 </body>
 </html>
+
 
 
 
