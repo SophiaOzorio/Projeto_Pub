@@ -701,7 +701,33 @@ echo "Processo de recalibração finalizado com sucesso!"
         </h2>
         <div id="collapseAtividade10" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
           <div class="accordion-body">
-            <p><strong>Objetivo:</strong> Realizar a anotação funcional das variantes.</p>
+            <p><strong>Objetivo:</strong> Realizar análises com os dados processados.</p><br>
+            <p><strong>Tarefa:</strong> Explore o software <strong>R</strong> e seus pacotes para realizar análises com os dados. Por exemplo, o pacote <a href="https://www.bioconductor.org/packages/release/bioc/html/maftools.html" target="_blank" rel="noopener"> maftools</a>
+permite gerar <a href="https://bioconductor.org/packages/release/bioc/vignettes/maftools/inst/doc/oncoplots.html"> <strong>oncoplots</strong></a> e outras visualizações genômicas.</p>
+            <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">📋</button>
+            <pre><code>
+<span class="comment"># --- INSTALAÇÃO (executar apenas uma vez) ---</span>
+<span class="comment"># if (!require("BiocManager", quietly = TRUE))</span>
+<span class="comment">#     install.packages("BiocManager")</span>
+<span class="comment"># BiocManager::install("maftools")</span>
+              
+<span class="function">library</span>(maftools)
+
+<span class="comment"># Caminho para o arquivo MAF do TCGA LAML</span>
+<span class="variable">laml.maf</span> = <span class="function">system.file</span>(<span class="string">'extdata'</span>, <span class="string">'tcga_laml.maf.gz'</span>, <span class="parameter">package</span> = <span class="string">'maftools'</span>)
+
+<span class="comment"># Informação clínica contendo dados de sobrevida e histologia. Este passo é opcional.</span>
+<span class="variable">laml.clin</span> = <span class="function">system.file</span>(<span class="string">'extdata'</span>, <span class="string">'tcga_laml_annot.tsv'</span>, <span class="parameter">package</span> = <span class="string">'maftools'</span>)
+
+<span class="variable">laml</span> = <span class="function">read.maf</span>(<span class="parameter">maf</span> = laml.maf,
+                <span class="parameter">clinicalData</span> = laml.clin,
+                <span class="parameter">verbose</span> = FALSE)
+
+<span class="comment"># Por padrão, a função plota os 20 genes mais mutados</span>
+<span class="function">oncoplot</span>(<span class="parameter">maf</span> = laml, <span class="parameter">draw_titv</span> = TRUE)
+</code></pre>
+            </code></pre>
           </div>
         </div>
       </div>
@@ -725,6 +751,7 @@ echo "Processo de recalibração finalizado com sucesso!"
   </script>
 </body>
 </html>
+
 
 
 
