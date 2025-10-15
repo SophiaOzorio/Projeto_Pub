@@ -405,7 +405,7 @@
     <span class="command">java</span> -Xmx<span class="string">"$MEMORY"</span> -jar <span class="string">"$PICARD_JAR"</span> MarkDuplicates METRICS_FILE=<span class="string">"$met"</span> I=<span class="string">"$i"</span> O=<span class="string">"$out"</span>
 <span class="keyword">done</span>
 </code></pre>
-        </div>
+        </div><br>
         <p><strong>💡 Importante:</strong> Configure as Variáveis: Edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p>
 
             <script>
@@ -458,7 +458,7 @@ echo "Iniciando a etapa 1: BaseRecalibrator..."
 
 <span class="comment"># O loop identifica o prefixo de cada amostra a partir dos arquivos *.rmdup.bam</span>
 <span class="command">for</span> i in $(ls -1 rmdup.bam | sed 's/.rmdup.bam//'); <span class="command">do</span>
-echo "Processando amostra: ${i}"
+  echo "Processando amostra: ${i}"
   <span class="command">gatk</span> --java-options "-Xmx60G -XX:ParallelGCThreads=24" BaseRecalibrator
     -I ${i}.rmdup.bam
     -R ${<span class="variable">REFHG38</span>}
@@ -586,6 +586,7 @@ echo "Processo de recalibração finalizado com sucesso!"
   </script>
 </body>
 </html>
+
 
 
 
