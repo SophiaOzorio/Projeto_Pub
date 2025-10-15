@@ -351,8 +351,8 @@
             <p><strong>2 - </strong>A ferramenta de alinhamento BWA gera saídas no formato SAM. No entanto, para as etapas subsequentes da análise, é necessária a conversão desses arquivos para o formato BAM. Para isso, execute o seguinte comando:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
-              <pre><code>samtools view -Sb [/CAMINHO/AMOSTRA/SAM/amostra.sam] > [/CAMINHO/PARA/ARQUIVO/SAIDA/amostra.bam]<p># Converter o arquivo SAM para BAM</p>
-              samtools sort -@ 24 -o [/CAMINHO/PARA/OUTPUTS/amostra.sorted.bam] [/CAMINHO/PARA/OS/ARQUIVOS/GERADOS/ANTERIORMENTE/amostra.bam]</code><p># Ordenar o arquivo BAM</p>
+              <pre><code>samtools view -Sb [/CAMINHO/AMOSTRA/SAM/amostra.sam] > [/CAMINHO/PARA/ARQUIVO/SAIDA/amostra.bam]<p># Converter o arquivo SAM para BAM</p><br>
+samtools sort -@ 24 -o [/CAMINHO/PARA/OUTPUTS/amostra.sorted.bam] [/CAMINHO/PARA/OS/ARQUIVOS/GERADOS/ANTERIORMENTE/amostra.bam]</code><p># Ordenar o arquivo BAM</p>
               </pre>
             </div>
 
@@ -584,6 +584,7 @@ echo "Processo de recalibração finalizado com sucesso!"
   </script>
 </body>
 </html>
+
 
 
 
