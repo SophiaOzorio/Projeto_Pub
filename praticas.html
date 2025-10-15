@@ -484,26 +484,8 @@ echo "Iniciando a etapa 2: ApplyBQSR..."
 <span class="command">done</span>
 
 echo "Processo de recalibração finalizado com sucesso!"
-</code></pre>          
-
-    <script>
-        function copyCode() {
-            const codeBlock = document.getElementById('code-block');
-            const codeText = codeBlock.innerText;
-            
-            navigator.clipboard.writeText(codeText).then(() => {
-                const button = document.querySelector('.copy-button');
-                button.innerText = 'Copiado!';
-                setTimeout(() => {
-                    button.innerText = 'Copiar Código';
-                }, 2000);
-            }).catch(err => {
-                console.error('Falha ao copiar o código: ', err);
-                alert('Não foi possível copiar o código.');
-            });
-        }
-    </script>
-              </pre></code>
+</code></pre><br>
+            <p><strong>💡 Importante!</strong> Configure as variáveis: edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p>
 
             <script>
               function copyCode(button) {
@@ -535,21 +517,16 @@ echo "Processo de recalibração finalizado com sucesso!"
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
               <pre><code>
-                <span class="comment"># --- CONFIGURAÇÃO: EDITE AS VARIÁVEIS ABAIXO ---</span>
+<span class="comment"># --- CONFIGURAÇÃO: EDITE AS VARIÁVEIS ABAIXO ---</span>
 <span class="comment"># ⚙️ Modifique estas variáveis para se adequarem ao seu projeto.</span>
-
 <span class="comment"># 1. Arquivos de Referência</span>
 <span class="variable">REFERENCE_GENOME</span>=<span class="string">"/caminho/para/seu/genoma_referencia.fasta"</span>
-
 <span class="comment"># 2. Diretório contendo os arquivos BAM recalibrados (saída do ApplyBQSR).</span>
 <span class="variable">INPUT_BAM_DIR</span>=<span class="string">"/caminho/para/seus/bams_recalibrados"</span>
-
 <span class="comment"># 3. Diretório principal onde todos os resultados serão salvos.</span>
 <span class="variable">OUTPUT_DIR</span>=<span class="string">"/caminho/para/salvar/os/resultados_finais"</span>
-
 <span class="comment"># 4. Memória a ser alocada para o Java (ex: 100g para 100 gigabytes).</span>
 <span class="variable">MEMORY</span>=<span class="string">"100g"</span>
-
 <span class="comment"># --- FIM DA CONFIGURAÇÃO ---</span>
 
 
@@ -569,7 +546,6 @@ echo "Processo de recalibração finalizado com sucesso!"
 <span class="comment"># --- PASSO 1: HaplotypeCaller (Modo GVCF) ---</span>
 <span class="keyword">echo</span> <span class="string">">>> PASSO 1: Executando HaplotypeCaller para cada amostra..."</span>
 <span class="keyword">for</span> <span class="variable">input_bam</span> <span class="keyword">in</span> <span class="string">"$INPUT_BAM_DIR"</span>/*.recal.bam; <span class="keyword">do</span>
-    
     <span class="variable">prefix</span>=<span class="string">$(</span><span class="command">basename</span> <span class="string">"${input_bam}"</span> .recal.bam<span class="string">)</span>
     <span class="keyword">echo</span> <span class="string">"--> Processando amostra: $prefix"</span>
     
@@ -578,7 +554,7 @@ echo "Processo de recalibração finalizado com sucesso!"
         <span class="flag">-I</span> <span class="string">"$input_bam"</span> \
         <span class="flag">-O</span> <span class="string">"${VARCALL_DIR}/${prefix}.g.vcf.gz"</span> \
         <span class="flag">-ERC</span> GVCF
-<span class="keyword">done</span>
+    <span class="keyword">done</span>
 
 <span class="comment"># --- PASSO 2: GenotypeGVCFs (Combinar amostras) ---</span>
 <span class="keyword">echo</span> <span class="string">">>> PASSO 2: Combinando GVCFs com GenotypeGVCFs..."</span>
@@ -685,6 +661,7 @@ echo "Processo de recalibração finalizado com sucesso!"
   </script>
 </body>
 </html>
+
 
 
 
