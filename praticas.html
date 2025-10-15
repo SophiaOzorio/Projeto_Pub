@@ -351,9 +351,9 @@
             <p><strong>2 - </strong>A ferramenta de alinhamento BWA gera saídas no formato SAM. No entanto, para as etapas subsequentes da análise, é necessária a conversão desses arquivos para o formato BAM. Para isso, execute o seguinte comando:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
-              <pre><code><span class="comment"># Converter o arquivo SAM para BAM</span>
+              <pre><code><p># Converter o arquivo SAM para BAM</p>
 <span class="cmd">samtools view -Sb [/CAMINHO/AMOSTRA/SAM/amostra.sam] > [/CAMINHO/PARA/ARQUIVO/SAIDA/amostra.bam]</span>
-<span class="comment"># Ordenar o arquivo BAM</span>
+<p># Ordenar o arquivo BAM</p>
 <span class="cmd">samtools sort -@ 24 -o [/CAMINHO/PARA/OUTPUTS/amostra.sorted.bam] [/CAMINHO/PARA/OS/ARQUIVOS/GERADOS/ANTERIORMENTE/amostra.bam]</span>
 </code></pre>
             </div>
@@ -414,8 +414,7 @@
             <p><strong>3. Dê Permissão de Execução:</strong> No seu terminal, torne o script executável com: <br><code>chmod +x run_picard.sh</code></p>
             <p><strong>4. Execute:</strong> Rode o script no terminal com: <br><code>./run_picard.sh</code></p>
         </div>
-    </div>
-    </div>
+
             <script>
               function copyCode(button) {
                 const code = button.nextElementSibling.innerText;
@@ -604,6 +603,7 @@ echo "Processo de recalibração finalizado com sucesso!"
   </script>
 </body>
 </html>
+
 
 
 
