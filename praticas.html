@@ -485,7 +485,7 @@ echo "Iniciando a etapa 2: ApplyBQSR..."
 
 echo "Processo de recalibração finalizado com sucesso!"
 </code></pre><br>
-          </div>
+          </div><br>
             <p><strong>💡 Importante!</strong> Configure as variáveis: edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p>
 
             <script>
@@ -514,7 +514,7 @@ echo "Processo de recalibração finalizado com sucesso!"
           <div class="accordion-body">
             <p><strong>Objetivo:</strong> Realizar a detecção e genotipagem de variantes genéticas (SNPs e indels) a partir dos arquivos em formato BAM, identificando diferenças entre as sequências do genoma amostrado e o genoma de referência.</p>
             <p><strong>Tarefa:</strong> </p>
-            <p><strong>1 - </strong>Utilizando a ferramenta **GATK HaplotypeCaller**, será realizada a etapa de chamada de variantes, conforme o script apresentado a seguir:</p>
+            <p><strong>1 - </strong>Utilizando a ferramenta GATK HaplotypeCaller, será realizada a etapa de chamada de variantes, conforme o script apresentado a seguir:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
               <pre><code>
@@ -603,7 +603,8 @@ echo "Processo de recalibração finalizado com sucesso!"
           </div>
         </div>
       </div>
-          
+
+
       <!-- Prática 9 -->
       <div class="accordion-item border-0 shadow-sm rounded-3">
         <h2 class="accordion-header">
@@ -615,10 +616,79 @@ echo "Processo de recalibração finalizado com sucesso!"
         </h2>
         <div id="collapseAtividade9" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
           <div class="accordion-body">
-            <p><strong>Objetivo:</strong> Realizar a anotação funcional das variantes.</p>
+            <p><strong>Objetivo:</strong> Realizar a anotação funcional das variantes</p>
+            <p><strong>Tarefa:</strong> </p>
+            <p><strong>1 - </strong>Utilizando as ferramentas SnpEff e SnpSift, realizaremos a anotação funcional das variantes. Para isso, execute o script a seguir:</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">📋</button>
+              <pre><code>
+                <span class="comment"># --- CONFIGURAÇÃO: EDITE AS VARIÁVEIS ABAIXO ---</span>
+<span class="comment"># ⚙️ Modifique estas variáveis para se adequarem ao seu ambiente e projeto.</span>
+
+<span class="comment"># 1. Caminhos para as ferramentas</span>
+<span class="variable">SNPEFF_JAR</span>=<span class="string">'/caminho/para/share/snpeff-5.2-1/snpEff.jar'</span>
+<span class="variable">SNPSIFT_JAR</span>=<span class="string">'/caminho/para/share/snpsift-5.2-0/SnpSift.jar'</span>
+<span class="variable">SNPEFF_CONFIG</span>=<span class="string">'/caminho/para/share/snpeff-5.2-1/snpEff.config'</span>
+<span class="variable">VCF_EFF_ONE_PER_LINE_PL</span>=<span class="string">'/caminho/para/share/snpeff-5.2-1/scripts/vcfEffOnePerLine.pl'</span>
+
+<span class="comment"># 2. Configurações de execução</span>
+<span class="variable">MEMORY</span>=<span class="string">'-Xmx32g'</span>
+<span class="variable">GENOME_VERSION</span>=<span class="string">'hg38'</span> <span class="comment"># Versão do genoma para SnpEff</span>
+<span class="variable">FILTER_PASS_VALUE</span>=1 <span class="comment"># Valor para substituir 'PASS' no final</span>
+
+<span class="comment"># 3. Caminhos para as bases de dados</span>
+<span class="variable">DB_CLINVAR</span>=<span class="string">'/caminho/para/db/clinvar.vcf.gz'</span>
+<span class="variable">DB_CLINVAR_COMMON</span>=<span class="string">'/caminho/para/db/common_and_clinical.vcf.gz'</span>
+<span class="variable">DB_SPLICEAI</span>=<span class="string">'/caminho/para/db/spliceai_scores.vcf.gz'</span>
+<span class="variable">DB_NSFP</span>=<span class="string">'/caminho/para/db/dbNSFP_database.txt.gz'</span>
+
+<span class="comment"># 4. Caminhos de entrada e saída</span>
+<span class="variable">INPUT_VCF_DIR</span>=<span class="string">'/caminho/para/vcf_final/'</span>
+<span class="variable">SAMPLE_NAME</span>=<span class="string">'cohort_genotyped_filtered_PASS'</span> <span class="comment"># Prefixo do arquivo VCF de entrada</span>
+<span class="variable">OUTPUT_ANN_DIR</span>=<span class="string">'/caminho/para/salvar/anotacoes/'</span>
+
+<span class="comment"># --- FIM DA CONFIGURAÇÃO ---</span>
+
+
+<span class="comment"># --- LÓGICA DO SCRIPT ORIGINAL (SEM ALTERAÇÕES) ---</span>
+
+<span class="keyword">echo</span> <span class="string">"Criando diretório de saída para anotações..."</span>
+<span class="command">mkdir</span> -p <span class="string">"$OUTPUT_ANN_DIR"</span>
+
+<span class="keyword">echo</span> <span class="string">"Iniciando anotação com SnpEff..."</span>
+<span class="command">java</span> <span class="string">"$MEMORY"</span> -jar <span class="string">"$SNPEFF_JAR"</span> -c <span class="string">"$SNPEFF_CONFIG"</span> -v <span class="string">"$GENOME_VERSION"</span> <span class="string">"${INPUT_VCF_DIR}/${SAMPLE_NAME}.vcf.gz"</span> > <span class="string">"${OUTPUT_ANN_DIR}/${SAMPLE_NAME}.snpeff.vcf"</span>
+
+<span class="keyword">echo</span> <span class="string">"Iniciando pipeline de pós-processamento e anotação com SnpSift..."</span>
+<span class="variable">snpeff_vcf</span>=<span class="string">"${OUTPUT_ANN_DIR}/${SAMPLE_NAME}.snpeff.vcf"</span>
+
+<span class="command">java</span> <span class="string">"$MEMORY"</span> -jar <span class="string">"$SNPSIFT_JAR"</span> filter <span class="string">"FILTER == 'PASS'"</span> <span class="string">"$snpeff_vcf"</span> \
+    | <span class="command">java</span> <span class="string">"$MEMORY"</span> -jar <span class="string">"$SNPEFF_JAR"</span> -canon -c <span class="string">"$SNPEFF_CONFIG"</span> -v <span class="string">"$GENOME_VERSION"</span> - \
+    | <span class="command">java</span> <span class="string">"$MEMORY"</span> -jar <span class="string">"$SNPSIFT_JAR"</span> dbnsfp -v -db <span class="string">"$DB_NSFP"</span> \
+        -f <span class="string">"fathmm-MKL_coding_score,fathmm-MKL_coding_rankscore,FATHMM_score,FATHMM_converted_rankscore,VEST4_score,VEST4_rankscore,CADD_phred,SIFT_converted_rankscore,Polyphen2_HVAR_rankscore"</span> - \
+    | <span class="command">java</span> <span class="string">"$MEMORY"</span> -jar <span class="string">"$SNPSIFT_JAR"</span> annotate <span class="string">"$DB_CLINVAR"</span> - \
+    | <span class="command">java</span> <span class="string">"$MEMORY"</span> -jar <span class="string">"$SNPSIFT_JAR"</span> annotate <span class="string">"$DB_CLINVAR_COMMON"</span> - \
+    | <span class="command">java</span> <span class="string">"$MEMORY"</span> -jar <span class="string">"$SNPSIFT_JAR"</span> annotate <span class="string">"$DB_SPLICEAI"</span> - \
+    | <span class="command">perl</span> <span class="string">"$VCF_EFF_ONE_PER_LINE_PL"</span> \
+    | <span class="command">sed</span> -e <span class="string">"s/\"PASS\"/$FILTER_PASS_VALUE/"</span> > <span class="string">"${OUTPUT_ANN_DIR}/cohort_annotated_final.vcf"</span>
+
+<span class="keyword">echo</span> <span class="string">"Processo de anotação concluído!"</span>
+</code></pre>
+            </div><br>
+            <p><strong>💡 Importante!</strong> Configure as variáveis: edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p>
+
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script><br>
           </div>
         </div>
       </div>
+
       
       <!-- Prática 10 -->
       <div class="accordion-item border-0 shadow-sm rounded-3">
@@ -655,6 +725,7 @@ echo "Processo de recalibração finalizado com sucesso!"
   </script>
 </body>
 </html>
+
 
 
 
