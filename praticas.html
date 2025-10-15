@@ -352,10 +352,10 @@
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
               <pre><code><span class="comment"># Converter o arquivo SAM para BAM</span>
-            <span class="cmd">samtools view -Sb [/CAMINHO/AMOSTRA/SAM/amostra.sam] > [/CAMINHO/PARA/ARQUIVO/SAIDA/amostra.bam]</span>
-            <span class="comment"># Ordenar o arquivo BAM</span>
-            <span class="cmd">samtools sort -@ 24 -o [/CAMINHO/PARA/OUTPUTS/amostra.sorted.bam] [/CAMINHO/PARA/OS/ARQUIVOS/GERADOS/ANTERIORMENTE/amostra.bam]</span>
-              </code></pre>
+<span class="cmd">samtools view -Sb [/CAMINHO/AMOSTRA/SAM/amostra.sam] > [/CAMINHO/PARA/ARQUIVO/SAIDA/amostra.bam]</span>
+<span class="comment"># Ordenar o arquivo BAM</span>
+<span class="cmd">samtools sort -@ 24 -o [/CAMINHO/PARA/OUTPUTS/amostra.sorted.bam] [/CAMINHO/PARA/OS/ARQUIVOS/GERADOS/ANTERIORMENTE/amostra.bam]</span>
+</code></pre>
             </div>
 
             <script>
@@ -371,7 +371,7 @@
         </div>
       </div>
 
-      <!-- Prática 7 -->
+    <!-- Prática 7 -->
       <div class="accordion-item border-0 shadow-sm rounded-3">
         <h2 class="accordion-header">
           <button class="accordion-button fw-semibold collapsed" type="button"
@@ -382,11 +382,161 @@
         </h2>
         <div id="collapseAtividade7" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
           <div class="accordion-body">
-            <p><strong>Objetivo:</strong> Realizar a anotação funcional das variantes.</p>
+            <p><strong>Objetivo:</strong> Efetuar etapas para que garantem a qualidade das amostras.</p>
+            <p><strong>Tarefa:</strong> </p>
+            <p><strong>1 - </strong>Primeiramente, iremos marcar as duplicatas com a ferramente "Picard", usando o seguinte script: </p>
+            
+        <div class="code-container">
+        <button class="copy-btn" onclick="copyCode(this)">📋</button>
+                    <pre><code id="code-block" class="language-bash"><span class="keyword">#!/bin/bash</span>
+
+<span class="comment"># --- Configure seus caminhos aqui ---</span>
+<span class="variable">INPUT_DIR</span>=<span class="string">"/caminho/para/seus/bams"</span>
+<span class="variable">OUTPUT_DIR</span>=<span class="string">"/caminho/para/salvar/resultados"</span>
+<span class="variable">PICARD_JAR</span>=<span class="string">"/caminho/para/seu/picard.jar"</span>
+<span class="variable">MEMORY</span>=<span class="string">"30g"</span>
+<span class="comment"># --- Fim da configuração ---</span>
+
+<span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="string">"$INPUT_DIR"</span>/*.bam; <span class="keyword">do</span>
+    <span class="variable">base</span>=<span class="operator">$(</span><span class="command">basename</span> <span class="string">"$i"</span><span class="operator">)</span>
+    <span class="variable">prefix</span>=<span class="string">"${base%%.bam}"</span>
+    <span class="variable">out</span>=<span class="string">"${OUTPUT_DIR}/${prefix}.rmdup.bam"</span>
+    <span class="variable">met</span>=<span class="string">"${OUTPUT_DIR}/${prefix}.metrics"</span>
+    <span class="command">java</span> -Xmx<span class="string">"$MEMORY"</span> -jar <span class="string">"$PICARD_JAR"</span> MarkDuplicates METRICS_FILE=<span class="string">"$met"</span> I=<span class="string">"$i"</span> O=<span class="string">"$out"</span>
+<span class="keyword">done</span>
+</code></pre>
+        </div>
+        
+        <div class="instructions">
+            <h2>Como Usar</h2>
+            <p><strong>1. Configure as Variáveis:</strong> Edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p>
+            <p><strong>2. Salve o Script:</strong> Copie o código e salve-o em um arquivo com a extensão <code>.sh</code> (ex: <code>run_picard.sh</code>).</p>
+            <p><strong>3. Dê Permissão de Execução:</strong> No seu terminal, torne o script executável com: <br><code>chmod +x run_picard.sh</code></p>
+            <p><strong>4. Execute:</strong> Rode o script no terminal com: <br><code>./run_picard.sh</code></p>
+        </div>
+    </div>
+    </div>
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script><br>
+          <p><strong>2 - </strong>Agora, iremos recalibrar a qualidade de bases com GATK BaseRecalibrator, usando o seguinte script: </p>
+          <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">📋</button>
+<pre><code><span class="comment">#!/bin/bash</span>
+
+<span class="comment"># ===================================================================</span>
+<span class="comment"># 1. DEFINIÇÃO DE VARIÁVEIS E CAMINHOS</span>
+<span class="comment"># Altere os caminhos abaixo para corresponder à sua estrutura de diretórios.</span>
+<span class="comment"># ===================================================================</span>
+
+<span class="comment"># Diretório contendo os arquivos BAM de entrada (pós-marcação de duplicatas)</span>
+<span class="variable">DIR_DUPLICATAS</span>=<b>'/CAMINHO/PARA/ARQUIVOS/BAM/DE/ENTRADA/'</b>
+
+<span class="comment"># Diretório onde os arquivos de saída (tabela de recalibração e BAM recalibrado) serão salvos</span>
+<span class="variable">DIR_OUTPUT</span>=<b>'/CAMINHO/PARA/DIRETORIO/DE/SAIDA/'</b>
+
+<span class="comment"># Arquivo do genoma de referência em formato FASTA</span>
+<span class="variable">REFHG38</span>=<b>'/CAMINHO/PARA/GENOMA/DE/REFERENCIA/hg38.fa'</b>
+
+<span class="comment"># Arquivos de "known sites" (variantes conhecidas) para o GATK</span>
+<span class="variable">KNOWIND</span>=<b>'/CAMINHO/PARA/ARQUIVOS/VCF/Homo_sapiens_assembly38.known_indels.vcf.gz'</b>
+<span class="variable">KNOWSNP</span>=<b>'/CAMINHO/PARA/ARQUIVOS/VCF/Homo_sapiens_assembly38.dbsnp138.vcf.gz'</b>
+<span class="variable">KNOWMIND</span>=<b>'/CAMINHO/PARA/ARQUIVOS/VCF/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz'</b>
+
+<span class="comment"># ===================================================================</span>
+<span class="comment"># 2. PREPARAÇÃO DO AMBIENTE</span>
+<span class="comment"># ===================================================================</span>
+
+<span class="comment"># Cria o diretório de saída se ele ainda não existir</span>
+<span class="command">mkdir</span> -p ${<span class="variable">DIR_OUTPUT</span>}
+
+<span class="comment"># Navega para o diretório com os arquivos de entrada para simplificar os loops</span>
+<span class="command">cd</span> ${<span class="variable">DIR_DUPLICATAS</span>}
+
+<span class="comment"># ===================================================================</span>
+<span class="comment"># ETAPA 1: Gerar a tabela de recalibração com BaseRecalibrator</span>
+<span class="comment"># ===================================================================</span>
+echo "Iniciando a etapa 1: BaseRecalibrator..."
+
+<span class="comment"># O loop identifica o prefixo de cada amostra a partir dos arquivos *.rmdup.bam</span>
+<span class="command">for</span> i in $(ls -1 rmdup.bam | sed 's/.rmdup.bam//'); <span class="command">do</span>
+echo "Processando amostra: ${i}"
+<span class="command">gatk</span> --java-options "-Xmx60G -XX:ParallelGCThreads=24" BaseRecalibrator
+
+-I ${i}.rmdup.bam
+
+-R ${<span class="variable">REFHG38</span>}
+
+--known-sites ${<span class="variable">KNOWIND</span>}
+
+--known-sites ${<span class="variable">KNOWSNP</span>}
+
+--known-sites ${<span class="variable">KNOWMIND</span>}
+
+-O ${<span class="variable">DIR_OUTPUT</span>}/${i}.recal_data.table;
+<span class="command">done</span>
+
+echo "Etapa 1 concluída."
+
+<span class="comment"># ===================================================================</span>
+<span class="comment"># ETAPA 2: Aplicar a recalibração nos arquivos BAM com ApplyBQSR</span>
+<span class="comment"># ===================================================================</span>
+echo "Iniciando a etapa 2: ApplyBQSR..."
+
+<span class="command">for</span> i in $(ls -1 rmdup.bam | sed 's/.rmdup.bam//'); <span class="command">do</span>
+echo "Aplicando BQSR na amostra: ${i}"
+<span class="command">gatk</span> --java-options "-Xmx60G -XX:ParallelGCThreads=24" ApplyBQSR
+
+-R ${<span class="variable">REFHG38</span>}
+
+-I ${i}.rmdup.bam
+
+--bqsr-recal-file ${<span class="variable">DIR_OUTPUT</span>}${i}.recal_data.table
+
+-O ${<span class="variable">DIR_OUTPUT</span>}/${i}.recal.bam;
+<span class="command">done</span>
+
+echo "Processo de recalibração finalizado com sucesso!"
+</code></pre>          
+
+    <script>
+        function copyCode() {
+            const codeBlock = document.getElementById('code-block');
+            const codeText = codeBlock.innerText;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                const button = document.querySelector('.copy-button');
+                button.innerText = 'Copiado!';
+                setTimeout(() => {
+                    button.innerText = 'Copiar Código';
+                }, 2000);
+            }).catch(err => {
+                console.error('Falha ao copiar o código: ', err);
+                alert('Não foi possível copiar o código.');
+            });
+        }
+    </script>
+              </pre></code>
+
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script>
           </div>
         </div>
       </div>
-
+    
       <!-- Prática 8 -->
       <div class="accordion-item border-0 shadow-sm rounded-3">
         <h2 class="accordion-header">
@@ -454,6 +604,7 @@
   </script>
 </body>
 </html>
+
 
 
 
