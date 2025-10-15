@@ -383,7 +383,7 @@
           <div class="accordion-body">
             <p><strong>Objetivo:</strong> Efetuar etapas para que garantem a qualidade das amostras.</p>
             <p><strong>Tarefa:</strong> </p>
-            <p><strong>1 - </strong>Primeiramente, iremos marcar as duplicatas com a ferramente "Picard", usando o seguinte script: </p>
+            <p><strong>1 - </strong>Primeiramente, iremos marcar as duplicatas com a ferramenta "Picard", usando o seguinte script: </p>
             
         <div class="code-container">
         <button class="copy-btn" onclick="copyCode(this)">📋</button>
@@ -416,7 +416,7 @@
                 });
               }
             </script><br>
-          <p><strong>2 - </strong>Agora, iremos recalibrar a qualidade de bases com GATK BaseRecalibrator, usando o seguinte script: </p>
+          <p><strong>2 - </strong>Agora, iremos recalibrar a qualidade de bases com "GATK BaseRecalibrator", usando o seguinte script: </p>
           <div class="code-container">
           <button class="copy-btn" onclick="copyCode(this)">📋</button>
 <pre><code><span class="comment">#!/bin/bash</span>
@@ -517,8 +517,8 @@ echo "Processo de recalibração finalizado com sucesso!"
           </div>
         </div>
       </div>
-    
-      <!-- Prática 8 -->
+
+          <!-- Prática 8 -->
       <div class="accordion-item border-0 shadow-sm rounded-3">
         <h2 class="accordion-header">
           <button class="accordion-button fw-semibold collapsed" type="button"
@@ -529,11 +529,111 @@ echo "Processo de recalibração finalizado com sucesso!"
         </h2>
         <div id="collapseAtividade8" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
           <div class="accordion-body">
-            <p><strong>Objetivo:</strong> Realizar análises a partir dos dados processados.</p>
+            <p><strong>Objetivo:</strong> Realizar a detecção e genotipagem de variantes genéticas (SNPs e indels) a partir dos arquivos em formato BAM, identificando diferenças entre as sequências do genoma amostrado e o genoma de referência.</p>
+            <p><strong>Tarefa:</strong> </p>
+            <p><strong>1 - </strong>Utilizando a ferramenta **GATK HaplotypeCaller**, será realizada a etapa de chamada de variantes, conforme o script apresentado a seguir:</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">📋</button>
+              <pre><code>
+                <span class="comment"># --- CONFIGURAÇÃO: EDITE AS VARIÁVEIS ABAIXO ---</span>
+<span class="comment"># ⚙️ Modifique estas variáveis para se adequarem ao seu projeto.</span>
+
+<span class="comment"># 1. Arquivos de Referência</span>
+<span class="variable">REFERENCE_GENOME</span>=<span class="string">"/caminho/para/seu/genoma_referencia.fasta"</span>
+
+<span class="comment"># 2. Diretório contendo os arquivos BAM recalibrados (saída do ApplyBQSR).</span>
+<span class="variable">INPUT_BAM_DIR</span>=<span class="string">"/caminho/para/seus/bams_recalibrados"</span>
+
+<span class="comment"># 3. Diretório principal onde todos os resultados serão salvos.</span>
+<span class="variable">OUTPUT_DIR</span>=<span class="string">"/caminho/para/salvar/os/resultados_finais"</span>
+
+<span class="comment"># 4. Memória a ser alocada para o Java (ex: 100g para 100 gigabytes).</span>
+<span class="variable">MEMORY</span>=<span class="string">"100g"</span>
+
+<span class="comment"># --- FIM DA CONFIGURAÇÃO ---</span>
+
+
+<span class="comment"># --- LÓGICA DO SCRIPT (NÃO PRECISA EDITAR) ---</span>
+
+<span class="comment"># Garante que o script pare se algum comando falhar.</span>
+<span class="keyword">set</span> -e
+
+<span class="comment"># Define os nomes dos subdiretórios de saída</span>
+<span class="variable">VARCALL_DIR</span>=<span class="string">"${OUTPUT_DIR}/1_variant_calling_gvcfs"</span>
+<span class="variable">FILTERED_DIR</span>=<span class="string">"${OUTPUT_DIR}/2_vcf_filtered"</span>
+<span class="variable">FINAL_DIR</span>=<span class="string">"${OUTPUT_DIR}/3_vcf_final"</span>
+
+<span class="keyword">echo</span> <span class="string">">>> Criando diretórios de saída..."</span>
+<span class="command">mkdir</span> -p <span class="string">"$VARCALL_DIR"</span> <span class="string">"$FILTERED_DIR"</span> <span class="string">"$FINAL_DIR"</span>
+
+<span class="comment"># --- PASSO 1: HaplotypeCaller (Modo GVCF) ---</span>
+<span class="keyword">echo</span> <span class="string">">>> PASSO 1: Executando HaplotypeCaller para cada amostra..."</span>
+<span class="keyword">for</span> <span class="variable">input_bam</span> <span class="keyword">in</span> <span class="string">"$INPUT_BAM_DIR"</span>/*.recal.bam; <span class="keyword">do</span>
+    
+    <span class="variable">prefix</span>=<span class="string">$(</span><span class="command">basename</span> <span class="string">"${input_bam}"</span> .recal.bam<span class="string">)</span>
+    <span class="keyword">echo</span> <span class="string">"--> Processando amostra: $prefix"</span>
+    
+    <span class="command">gatk</span> --java-options <span class="string">"-Xmx${MEMORY}"</span> HaplotypeCaller \
+        <span class="flag">-R</span> <span class="string">"$REFERENCE_GENOME"</span> \
+        <span class="flag">-I</span> <span class="string">"$input_bam"</span> \
+        <span class="flag">-O</span> <span class="string">"${VARCALL_DIR}/${prefix}.g.vcf.gz"</span> \
+        <span class="flag">-ERC</span> GVCF
+<span class="keyword">done</span>
+
+<span class="comment"># --- PASSO 2: GenotypeGVCFs (Combinar amostras) ---</span>
+<span class="keyword">echo</span> <span class="string">">>> PASSO 2: Combinando GVCFs com GenotypeGVCFs..."</span>
+
+<span class="comment"># Cria uma lista de todos os GVCFs gerados para usar como entrada</span>
+<span class="variable">GVCF_ARGS</span>=()
+<span class="keyword">for</span> <span class="variable">gvcf</span> <span class="keyword">in</span> <span class="string">"$VARCALL_DIR"</span>/*.g.vcf.gz; <span class="keyword">do</span>
+    <span class="variable">GVCF_ARGS</span>+=(<span class="string">-V</span> <span class="string">"$gvcf"</span>)
+<span class="keyword">done</span>
+
+<span class="command">gatk</span> --java-options <span class="string">"-Xmx${MEMORY}"</span> GenotypeGVCFs \
+    <span class="flag">-R</span> <span class="string">"$REFERENCE_GENOME"</span> \
+    <span class="string">"${GVCF_ARGS[@]}"</span> \
+    <span class="flag">-O</span> <span class="string">"${FILTERED_DIR}/cohort_genotyped.vcf.gz"</span>
+
+<span class="comment"># --- PASSO 3: VariantFiltration ---</span>
+<span class="keyword">echo</span> <span class="string">">>> PASSO 3: Aplicando filtros de qualidade (VariantFiltration)..."</span>
+<span class="command">gatk</span> --java-options <span class="string">"-Xmx${MEMORY}"</span> VariantFiltration \
+    <span class="flag">-R</span> <span class="string">"$REFERENCE_GENOME"</span> \
+    <span class="flag">-V</span> <span class="string">"${FILTERED_DIR}/cohort_genotyped.vcf.gz"</span> \
+    <span class="flag">-O</span> <span class="string">"${FILTERED_DIR}/cohort_genotyped_filtered.vcf.gz"</span> \
+    <span class="flag">--filter-expression</span> <span class="string">"QD < 2.0"</span> <span class="flag">--filter-name</span> <span class="string">"QD2"</span> \
+    <span class="flag">--filter-expression</span> <span class="string">"FS > 60.0"</span> <span class="flag">--filter-name</span> <span class="string">"FS60"</span> \
+    <span class="flag">--filter-expression</span> <span class="string">"MQ < 40.0"</span> <span class="flag">--filter-name</span> <span class="string">"MQ40"</span> \
+    <span class="flag">--filter-expression</span> <span class="string">"SOR > 5.0"</span> <span class="flag">--filter-name</span> <span class="string">"SOR5"</span> \
+    <span class="flag">--filter-expression</span> <span class="string">"MQRankSum < -12.5"</span> <span class="flag">--filter-name</span> <span class="string">"MQRankSum-12.5"</span> \
+    <span class="flag">--filter-expression</span> <span class="string">"ReadPosRankSum < -8.0"</span> <span class="flag">--filter-name</span> <span class="string">"ReadPosRankSum-8"</span>
+
+<span class="comment"># --- PASSO 4: SelectVariants (Manter apenas variantes PASS) ---</span>
+<span class="keyword">echo</span> <span class="string">">>> PASSO 4: Selecionando apenas variantes que passaram nos filtros..."</span>
+<span class="command">gatk</span> --java-options <span class="string">"-Xmx${MEMORY}"</span> SelectVariants \
+    <span class="flag">-R</span> <span class="string">"$REFERENCE_GENOME"</span> \
+    <span class="flag">-V</span> <span class="string">"${FILTERED_DIR}/cohort_genotyped_filtered.vcf.gz"</span> \
+    <span class="flag">-O</span> <span class="string">"${FINAL_DIR}/cohort_final_PASS.vcf.gz"</span> \
+    <span class="flag">--exclude-filtered</span>
+
+<span class="keyword">echo</span> <span class="string">"Chamada de variantes concluído! O VCF final está em: ${FINAL_DIR}/cohort_final_PASS.vcf.gz"</span>
+</code></pre>
+        </div><br>
+        <p><strong>💡 Importante!</strong> Configure as variáveis: edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p>
+
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script>
+
           </div>
         </div>
       </div>
-      
+          
       <!-- Prática 9 -->
       <div class="accordion-item border-0 shadow-sm rounded-3">
         <h2 class="accordion-header">
@@ -585,6 +685,7 @@ echo "Processo de recalibração finalizado com sucesso!"
   </script>
 </body>
 </html>
+
 
 
 
