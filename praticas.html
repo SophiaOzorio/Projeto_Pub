@@ -558,16 +558,9 @@ echo "Processo de recalibração finalizado com sucesso!"
 
 <span class="comment"># --- PASSO 2: GenotypeGVCFs (Combinar amostras) ---</span>
 <span class="keyword">echo</span> <span class="string">">>> PASSO 2: Combinando GVCFs com GenotypeGVCFs..."</span>
-
-<span class="comment"># Cria uma lista de todos os GVCFs gerados para usar como entrada</span>
-<span class="variable">GVCF_ARGS</span>=()
-<span class="keyword">for</span> <span class="variable">gvcf</span> <span class="keyword">in</span> <span class="string">"$VARCALL_DIR"</span>/*.g.vcf.gz; <span class="keyword">do</span>
-    <span class="variable">GVCF_ARGS</span>+=(<span class="string">-V</span> <span class="string">"$gvcf"</span>)
-<span class="keyword">done</span>
-
 <span class="command">gatk</span> --java-options <span class="string">"-Xmx${MEMORY}"</span> GenotypeGVCFs \
     <span class="flag">-R</span> <span class="string">"$REFERENCE_GENOME"</span> \
-    <span class="string">"${GVCF_ARGS[@]}"</span> \
+    <span class="string">"${VARCALL_DIR}/*.g.vcf.gz"</span> \
     <span class="flag">-O</span> <span class="string">"${FILTERED_DIR}/cohort_genotyped.vcf.gz"</span>
 
 <span class="comment"># --- PASSO 3: VariantFiltration ---</span>
@@ -661,24 +654,6 @@ echo "Processo de recalibração finalizado com sucesso!"
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
