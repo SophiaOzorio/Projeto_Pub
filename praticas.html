@@ -336,7 +336,7 @@
               <pre><code>bwa mem -M -t 24 [/CAMINHO/PARA/O/GENOMA/DE/REFERENCIA/arquivo.fa] [leitura_R1.fastq.gz] [leitura_R2.fastq.gz] > [/CAMINHO/PARA/SAIDA/DOS/OUTPUTS/arquivo_alinhado.sam] </code></pre>
               <p># Significado Parâmetros:</p>
               <p># -t: Define quantos núcleos de CPU (threads) usar.</p>
-              <P># M: Marca alinhamentos extras como Secundários, evitando possíveis problemas futuros com as próximas ferramentas.</P>
+              <P># -M: Marca alinhamentos extras como Secundários, evitando possíveis problemas futuros com as próximas ferramentas.</P>
             </div>
 
             <script>
@@ -351,13 +351,16 @@
             <p><strong>2 - </strong>A ferramenta de alinhamento BWA gera saídas no formato SAM. No entanto, para as etapas subsequentes da análise, é necessária a conversão desses arquivos para o formato BAM. Para isso, execute o seguinte comando:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
-              <pre><code>samtools view -Sb [/CAMINHO/AMOSTRA/SAM/amostra.sam] > [/CAMINHO/PARA/ARQUIVO/SAIDA/amostra.bam]</code><br>
-              <p># Converter o arquivo SAM para BAM</p>
-              <code>samtools sort -@ 24 -o [/CAMINHO/PARA/OUTPUTS/amostra.sorted.bam] [/CAMINHO/PARA/OS/ARQUIVOS/GERADOS/ANTERIORMENTE/amostra.bam]</code>
-              <p># Ordenar o arquivo BAM</p></pre>
+              <pre><code>
+            # Converter o arquivo SAM para BAM
+            samtools view -Sb [/CAMINHO/AMOSTRA/SAM/amostra.sam] > [/CAMINHO/PARA/ARQUIVO/SAIDA/amostra.bam]
+
+            # Ordenar o arquivo BAM
+            samtools sort -@ 24 -o [/CAMINHO/PARA/OUTPUTS/amostra.sorted.bam] [/CAMINHO/PARA/OS/ARQUIVOS/GERADOS/ANTERIORMENTE/amostra.bam]
+              </code></pre>
             </div>
             <script>
-              function copyCode(button) {
+            function copyCode(button) {
                 const code = button.nextElementSibling.innerText;
                 navigator.clipboard.writeText(code).then(() => {
                   button.innerText = '✅';
@@ -452,6 +455,7 @@
   </script>
 </body>
 </html>
+
 
 
 
