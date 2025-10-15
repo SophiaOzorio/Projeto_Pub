@@ -459,19 +459,13 @@ echo "Iniciando a etapa 1: BaseRecalibrator..."
 <span class="comment"># O loop identifica o prefixo de cada amostra a partir dos arquivos *.rmdup.bam</span>
 <span class="command">for</span> i in $(ls -1 rmdup.bam | sed 's/.rmdup.bam//'); <span class="command">do</span>
 echo "Processando amostra: ${i}"
-<span class="command">gatk</span> --java-options "-Xmx60G -XX:ParallelGCThreads=24" BaseRecalibrator
-
--I ${i}.rmdup.bam
-
--R ${<span class="variable">REFHG38</span>}
-
---known-sites ${<span class="variable">KNOWIND</span>}
-
---known-sites ${<span class="variable">KNOWSNP</span>}
-
---known-sites ${<span class="variable">KNOWMIND</span>}
-
--O ${<span class="variable">DIR_OUTPUT</span>}/${i}.recal_data.table;
+  <span class="command">gatk</span> --java-options "-Xmx60G -XX:ParallelGCThreads=24" BaseRecalibrator
+    -I ${i}.rmdup.bam
+    -R ${<span class="variable">REFHG38</span>}
+    --known-sites ${<span class="variable">KNOWIND</span>}
+    --known-sites ${<span class="variable">KNOWSNP</span>}
+    --known-sites ${<span class="variable">KNOWMIND</span>}
+    -O ${<span class="variable">DIR_OUTPUT</span>}/${i}.recal_data.table;
 <span class="command">done</span>
 
 echo "Etapa 1 concluída."
@@ -482,16 +476,12 @@ echo "Etapa 1 concluída."
 echo "Iniciando a etapa 2: ApplyBQSR..."
 
 <span class="command">for</span> i in $(ls -1 rmdup.bam | sed 's/.rmdup.bam//'); <span class="command">do</span>
-echo "Aplicando BQSR na amostra: ${i}"
-<span class="command">gatk</span> --java-options "-Xmx60G -XX:ParallelGCThreads=24" ApplyBQSR
-
--R ${<span class="variable">REFHG38</span>}
-
--I ${i}.rmdup.bam
-
---bqsr-recal-file ${<span class="variable">DIR_OUTPUT</span>}${i}.recal_data.table
-
--O ${<span class="variable">DIR_OUTPUT</span>}/${i}.recal.bam;
+  echo "Aplicando BQSR na amostra: ${i}"
+  <span class="command">gatk</span> --java-options "-Xmx60G -XX:ParallelGCThreads=24" ApplyBQSR
+    -R ${<span class="variable">REFHG38</span>}
+    -I ${i}.rmdup.bam
+    --bqsr-recal-file ${<span class="variable">DIR_OUTPUT</span>}${i}.recal_data.table
+    -O ${<span class="variable">DIR_OUTPUT</span>}/${i}.recal.bam;
 <span class="command">done</span>
 
 echo "Processo de recalibração finalizado com sucesso!"
@@ -596,6 +586,7 @@ echo "Processo de recalibração finalizado com sucesso!"
   </script>
 </body>
 </html>
+
 
 
 
