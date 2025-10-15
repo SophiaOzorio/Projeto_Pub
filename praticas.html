@@ -192,7 +192,7 @@
             <p><strong>1 - </strong>Com base nos dados encontrados durante a busca literária, acesse o banco onde os mesmos foram disponibilizados, encontre o código <strong>SRA</strong> e execute o seguinte comando para baixar:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
-              <pre><code>CAMINHO/PARA/O/EXECUTÁVEL/prefetch SRRXXXXXX SRRYYYYYY SRRZZZZZZ</code></pre>
+              <pre><code>/CAMINHO/PARA/O/EXECUTÁVEL/prefetch SRRXXXXXX SRRYYYYYY SRRZZZZZZ</code></pre>
             </div>
 
             <script>
@@ -203,12 +203,12 @@
                   setTimeout(() => button.innerText = '📋', 1500);
                 });
               }
-            </script><br><br>
+            </script><br>
             <p><strong>2 -</strong> Após baixar os dados .SRA, é necessário transformá-los para o formato <strong>FASTQ</strong>. Para isso, use o seguinte comando (para dados paired-end):</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
-              <pre><code>CAMINHO/PARA/O/EXECUTÁVEL/fastq-dump --splites-files --progress --outdir CAMINHO/DE/SAIDA/DOS/ARQUIVOS/GERADOS</code></pre>
-              <p>#Caso suas amostras sejam single-end não use o parâmetro "--splites-files"</p>
+              <pre><code>/CAMINHO/PARA/O/EXECUTÁVEL/fastq-dump --splites-files --progress --outdir /CAMINHO/DE/SAIDA/DOS/ARQUIVOS/GERADOS/</code></pre>
+              <p># Caso suas amostras sejam single-end não use o parâmetro "--splites-files"</p>
             </div>
 
             <script>
@@ -219,7 +219,7 @@
                   setTimeout(() => button.innerText = '📋', 1500);
                 });
               }
-            </script><br><br>
+            </script><br>
             <p><strong>💡 Dica:</strong> Faça pastas separadas para armazenar os outputs de passo da pipeline!</p>
           </div>
         </div>
@@ -252,13 +252,13 @@
                   setTimeout(() => button.innerText = '📋', 1500);
                 });
               }
-            </script><br><br>
+            </script><br>
             <p><strong>2 -</strong> Após realizar o controle de qualidade com a ferramenta FastQC, utilizaremos a ferramenta MultiQC para integrar os resultados de todas as amostras em somente um gráfico. Para isso, execute o seguinte comando:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
               <pre><code>multiqc .</code></pre>
-              <p>#Vá para o diretório que contém os arquivos que você deseja analisar com o MultiQC.<br>
-              #A entrada serão os arquivos gerados pelo FastQC ".fastq.gz"</p>
+              <p># Vá para o diretório que contém os arquivos que você deseja analisar com o MultiQC.<br>
+              # A entrada serão os arquivos gerados pelo FastQC ".fastq.gz"</p>
             </div>
 
             <script>
@@ -269,7 +269,7 @@
                   setTimeout(() => button.innerText = '📋', 1500);
                 });
               }
-            </script><br><br>
+            </script><br>
             <p><strong>3 -</strong> Analise os resultados obtidos, com auxilio do material teórico na aba "Desenvolvimento", módulo "4 - Controle de Qualidade".</p>
 
           </div>
@@ -293,14 +293,14 @@
             <p><strong>1 - </strong>Após revisar os resultados do passo anterior, verifique se é necessário executar a trimagem para remover adaptadores e bases de baixa qualidade. Caso necessário, execute esse coomando no terminal do servidor:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
-              <pre><code>CAMINHO/PARA/O/EXECUTÁVEL/trim_galore -j 24 -q 10 --phred33 --length 35 --paired --retain_unpaired -o CAMINHO/PARA/OS/OUTPUTS</code></pre>
-              <p>#Significado Parâmetros:</p>
-              <p>#-j: Define o número de núcleos (cores) de CPU a serem usados.</p>
-              <p>#-q: Define o limiar mínimo de qualidade Phred. No caso, bases no final de uma leitura com qualidade inferior a 10 serão removidas.</p>
-              <p>#--phred: Especifica o formato de codificação da qualidade das bases.</p>
-              <p>#--length: Define o comprimento mínimo que uma leitura deve ter após a trimagem para ser mantida.</p>
-              <p>#--paired: Informa ao programa que os dados de entrada são paired-end.</p>
-              <p>#--retain_unpaired: Mantém leituras cujo par foi descartado em arquivos separados.</p>
+              <pre><code>/CAMINHO/PARA/O/EXECUTÁVEL/trim_galore -j 24 -q 10 --phred33 --length 35 --paired --retain_unpaired -o /CAMINHO/PARA/OS/OUTPUTS/ amostra_A_R1.fastq.gz amostra_A_R2.fastq.gz</code></pre>
+              <p># Significado Parâmetros:</p>
+              <p># -j: Define o número de núcleos (cores) de CPU a serem usados.</p>
+              <p># -q: Define o limiar mínimo de qualidade Phred. No caso, bases no final de uma leitura com qualidade inferior a 10 serão removidas.</p>
+              <p># --phred: Especifica o formato de codificação da qualidade das bases.</p>
+              <p># --length: Define o comprimento mínimo que uma leitura deve ter após a trimagem para ser mantida.</p>
+              <p># --paired: Informa ao programa que os dados de entrada são paired-end.</p>
+              <p># --retain_unpaired: Mantém leituras cujo par foi descartado em arquivos separados.</p>
             </div>
 
             <script>
@@ -311,13 +311,13 @@
                   setTimeout(() => button.innerText = '📋', 1500);
                 });
               }
-            </script><br><br>
+            </script><br>
             <p><strong>2 -</strong> Caso suas amostras tenham sido trimadas, repita a atividade 4. O objetivo é garantir que a qualidade dos dados é adequada para dar continuidade à análise.</p>
           </div>
         </div>
       </div>
 
-      <!-- Prática 6 -->
+            <!-- Prática 6 -->
       <div class="accordion-item border-0 shadow-sm rounded-3">
         <h2 class="accordion-header">
           <button class="accordion-button fw-semibold collapsed" type="button"
@@ -328,7 +328,43 @@
         </h2>
         <div id="collapseAtividade6" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
           <div class="accordion-body">
-            <p><strong>Objetivo:</strong> Realizar a chamada de variantes com HaplotypeCaller do GATK.</p>
+            <p><strong>Objetivo:</strong> Determinar a localização de origem de cada sequência curta (read) em um genoma de referência.</p>
+            <p><strong>Tarefa:</strong> </p>
+            <p><strong>1 - </strong>Após confirmar a qualidade das amostras, iremos realizar a etapa de alinhamento com o genoma de referência. Para isso, execute o seguinte comando:</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">📋</button>
+              <pre><code>bwa mem -M -t 24 [/CAMINHO/PARA/O/GENOMA/DE/REFERENCIA/arquivo.fa] [leitura_R1.fastq.gz] [leitura_R2.fastq.gz] > [/CAMINHO/PARA/SAIDA/DOS/OUTPUTS/arquivo_alinhado.sam] </code></pre>
+              <p># Significado Parâmetros:</p>
+              <p># -t: Define quantos núcleos de CPU (threads) usar.</p>
+              <P># M: Marca alinhamentos extras como Secundários, evitando possíveis problemas futuros com as próximas ferramentas.</P>
+            </div>
+
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script><br>
+            <p><strong>2 - </strong>A ferramenta de alinhamento BWA gera saídas no formato SAM. No entanto, para as etapas subsequentes da análise, é necessária a conversão desses arquivos para o formato BAM. Para isso, execute o seguinte comando:</p>
+            <div class="code-container">
+              <button class="copy-btn" onclick="copyCode(this)">📋</button>
+              <pre><code>samtools view -Sb [/CAMINHO/AMOSTRA/SAM/amostra.sam] > [/CAMINHO/PARA/ARQUIVO/SAIDA/amostra.bam]<br>
+              # Converter o arquivo SAM para BAM<br>
+              samtools sort -@ 24 -o [/CAMINHO/PARA/OUTPUTS/amostra.sorted.bam] [/CAMINHO/PARA/OS/ARQUIVOS/GERADOS/ANTERIORMENTE/amostra.bam]<br>
+              # Ordenar o arquivo BAM</code></pre>
+            </div>
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script>
           </div>
         </div>
       </div>
@@ -416,6 +452,7 @@
   </script>
 </body>
 </html>
+
 
 
 
