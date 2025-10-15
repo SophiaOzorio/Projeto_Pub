@@ -219,7 +219,7 @@
                   setTimeout(() => button.innerText = '📋', 1500);
                 });
               }
-            </script>
+            </script><br><br>
             <p><strong>💡 Dica:</strong> Faça pastas separadas para armazenar os outputs de passo da pipeline!</p>
           </div>
         </div>
@@ -290,10 +290,17 @@
           <div class="accordion-body">
             <p><strong>Objetivo:</strong> Efetuar a remoção dos adaptadores e o corte das bases de baixa qualidade, se necessário.</p>
             <p><strong>Tarefa:</strong> </p>
-            <p><strong>1 - </strong>Após revisar os resultados do passo anterior, verifique se é necessário executar a trimagem para remover adaptadores e bases de baixa qualidade.</p>
+            <p><strong>1 - </strong>Após revisar os resultados do passo anterior, verifique se é necessário executar a trimagem para remover adaptadores e bases de baixa qualidade. Caso necessário, execute esse coomando no terminal do servidor:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
-              <pre><code>fastqc amostra_A_R1.fastq.gz amostra_A_R2.fastq.gz amostra_B_R1.fastq.gz amostra_B_R2.fastq.gz</code></pre>
+              <pre><code>CAMINHO/PARA/O/EXECUTÁVEL/trim_galore -j 24 -q 10 --phred33 --length 35 --paired --retain_unpaired -o CAMINHO/PARA/OS/OUTPUTS</code></pre>
+              <p>#Significado Parâmetros:</p>
+              <li>#-j: Define o número de núcleos (cores) de CPU a serem usados.</li>
+              <li>#-q: Define o limiar mínimo de qualidade Phred. No caso, bases no final de uma leitura com qualidade inferior a 10 serão removidas.</li>
+              <li>#--phred: Especifica o formato de codificação da qualidade das bases.</li>
+              <li>#--length: Define o comprimento mínimo que uma leitura deve ter após a trimagem para ser mantida.</li>
+              <li>#--paired: Informa ao programa que os dados de entrada são paired-end.</li>
+              <li>#--retain_unpaired: Mantém leituras cujo par foi descartado em arquivos separados.</li>
             </div>
 
             <script>
@@ -305,23 +312,6 @@
                 });
               }
             </script>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Prática 5 -->
-      <div class="accordion-item border-0 shadow-sm rounded-3">
-        <h2 class="accordion-header">
-          <button class="accordion-button fw-semibold collapsed" type="button"
-                  data-bs-toggle="collapse" data-bs-target="#collapseAtividade5"
-                  aria-expanded="false" aria-controls="collapseAtividade5">
-            Atividade 5 — Trimagem
-          </button>
-        </h2>
-        <div id="collapseAtividade5" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
-          <div class="accordion-body">
-            <p><strong>Objetivo:</strong> Seguir as boas práticas do GATK antes da chamada de variantes.</p>
           </div>
         </div>
       </div>
@@ -425,5 +415,6 @@
   </script>
 </body>
 </html>
+
 
 
