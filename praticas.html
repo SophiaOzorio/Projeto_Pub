@@ -685,6 +685,152 @@ echo "Processo de recalibração finalizado com sucesso!"
                 });
               }
             </script><br>
+          <p><strong>2 - </strong>Após realizar a anotação, devemos separar as amostras em arquivos separados.Para isso, execute o script a seguir:</p>
+          <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">📋</button>
+          <pre><code>
+<span class="comment"># --- CONFIGURAÇÃO: EDITE AS VARIÁVEIS ABAIXO ---</span>
+<span class="comment"># ⚙️ Modifique estas variáveis para se adequarem ao seu projeto.</span>
+
+<span class="comment"># 1. Caminho para o arquivo VCF de entrada com múltiplas amostras.</span>
+<span class="variable">INPUT_VCF</span>=<span class="string">"/caminho/para/seu/arquivo_multi_amostra.vcf.gz"</span>
+
+<span class="comment"># 2. Diretório onde os VCFs individuais serão salvos.</span>
+<span class="variable">OUTPUT_DIR</span>=<span class="string">"/caminho/para/salvar/os/vcfs_individuais"</span>
+
+<span class="comment"># --- FIM DA CONFIGURAÇÃO ---</span>
+
+
+<span class="comment"># --- LÓGICA DO SCRIPT (NÃO PRECISA EDITAR) ---</span>
+
+<span class="comment"># Garante que o script pare se algum comando falhar.</span>
+<span class="keyword">set</span> -e
+
+<span class="keyword">echo</span> <span class="string">">>> Iniciando a separação do VCF por amostra..."</span>
+
+<span class="comment"># Cria o diretório de saída, se ele não existir.</span>
+<span class="command">mkdir</span> -p <span class="string">"$OUTPUT_DIR"</span>
+
+<span class="comment"># Loop para processar cada amostra encontrada no cabeçalho do VCF.</span>
+<span class="keyword">for</span> <span class="variable">sample</span> <span class="keyword">in</span> <span class="operator">$(</span><span class="command">bcftools</span> query -l <span class="string">"$INPUT_VCF"</span><span class="operator">)</span>; <span class="keyword">do</span>
+    
+    <span class="keyword">echo</span> <span class="string">"--> Extraindo amostra: $sample"</span>
+    
+    <span class="comment"># Define o nome do arquivo de saída para a amostra atual.</span>
+    <span class="variable">output_vcf</span>=<span class="string">"${OUTPUT_DIR}/${sample}_annotated.vcf"</span>
+    
+    <span class="comment"># Usa bcftools para criar um VCF contendo apenas a amostra atual.</span>
+    <span class="command">bcftools</span> view -c 1 -s <span class="string">"$sample"</span> -o <span class="string">"$output_vcf"</span> <span class="string">"$INPUT_VCF"</span>
+    
+<span class="keyword">done</span>
+
+<span class="keyword">echo</span> <span class="string">"✅ Processo concluído! Os VCFs individuais foram salvos em: $OUTPUT_DIR"</span>
+          </code></pre>
+           <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script><br>
+            
+          <p><strong>3 - </strong>Agora, temos um arquivo vcf anotado, com todas as informações para fazermos as análises. Porém alguns pacotes necessitam de formatos diferentes de arquivo, como o maftools. Caso você queira utilizar esse pacote, execute o script a seguir ainda no terminal do servidor:</p>
+          <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">📋</button>
+          <pre><code>
+<span class="comment">#!/bin/bash</span>
+
+<span class="comment"># ===================================================================</span>
+<span class="comment"># 1. DEFINIÇÃO DE VARIÁVEIS E CAMINHOS</span>
+<span class="comment"># Configure os caminhos para as ferramentas e arquivos de referência.</span>
+<span class="comment"># ===================================================================</span>
+
+<span class="comment"># Caminho para o genoma de referência em formato FASTA</span>
+<span class="variable">FASTA</span>=<b>'/CAMINHO/PARA/SEU/GENOMA_DE_REFERENCIA.fasta'</b>
+
+<span class="comment"># Caminho para a pasta 'bin' da sua instalação do VEP (Variant Effect Predictor)</span>
+<span class="variable">VEP_PATH</span>=<b>'/CAMINHO/PARA/INSTALACAO/VEP/bin/'</b>
+
+<span class="comment"># Caminho para o diretório de dados/cache do VEP</span>
+<span class="variable">VEP_DATA</span>=<b>'/CAMINHO/PARA/DADOS_CACHE/VEP/'</b>
+
+<span class="comment"># Versão do cache do VEP que será utilizada</span>
+<span class="variable">VEP_VERSION</span>=112
+
+<span class="comment"># Diretório contendo os arquivos VCF de entrada que serão convertidos</span>
+<span class="variable">DIR_ENTRADA_VCF</span>=<b>'/CAMINHO/PARA/SEUS/VCFs/DE/ENTRADA/'</b>
+
+<span class="comment"># Diretório onde os arquivos MAF resultantes serão salvos</span>
+<span class="variable">DIR_SAIDA_MAF</span>=<b>'/CAMINHO/PARA/O/DIRETORIO/DE/SAIDA_MAF/'</b>
+
+
+<span class="comment"># ===================================================================</span>
+<span class="comment"># 2. PREPARAÇÃO DO AMBIENTE</span>
+<span class="comment"># ===================================================================</span>
+
+<span class="comment"># Cria o diretório de saída se ele ainda não existir</span>
+<span class="command">mkdir</span> -p ${<span class="variable">DIR_SAIDA_MAF</span>}
+
+<span class="comment"># Navega para o diretório com os arquivos VCF de entrada</span>
+<span class="command">cd</span> ${<span class="variable">DIR_ENTRADA_VCF</span>}
+
+
+<span class="comment"># ===================================================================</span>
+<span class="comment"># 3. EXECUÇÃO DA CONVERSÃO</span>
+<span class="comment"># ===================================================================</span>
+
+echo <span class="string">"Iniciando a conversão de VCF para MAF..."</span>
+
+<span class="comment"># O loop itera sobre todos os arquivos que terminam com '_annotated_final.vcf'.</span>
+<span class="comment"># Altere o padrão "*.vcf" se seus arquivos tiverem outro nome.</span>
+<span class="command">for</span> i in *_annotated_final.vcf; <span class="command">do</span>
+    echo <span class="string">"--------------------------------------------------"</span>
+    echo <span class="string">"Processando arquivo: $i"</span>
+
+    <span class="comment"># Extrai o nome da amostra a partir do nome do arquivo</span>
+    <span class="variable">SAMPLE_NAME</span>=$(basename <span class="string">"$i"</span> | cut -d'.' -f1)
+    <span class="variable">MAF_OUTPUT</span>=<span class="string">"${SAMPLE_NAME}.maf"</span>
+
+    <span class="comment"># Este bloco extrai dinamicamente todos os campos INFO e FORMAT do VCF.</span>
+    <span class="comment"># Isso garante que todas as anotações presentes no VCF sejam mantidas no MAF final.</span>
+    <span class="variable">fields</span>=$( \
+        { \
+            grep -oP <span class="string">'^##INFO=&lt;ID=\K[^,]+'</span> <span class="string">"$i"</span>; \
+            grep -m1 -v <span class="string">'^#'</span> <span class="string">"$i"</span> | cut -f9 | tr ':' <span class="string">'\n'</span>; \
+        } | uniq | paste -sd "," - \
+    )
+
+    <span class="comment"># Executa o script vcf2maf.pl</span>
+    <span class="command">vcf2maf.pl</span> --input-vcf $i \
+        --output-maf ${<span class="variable">DIR_SAIDA_MAF</span>}/${<span class="variable">MAF_OUTPUT</span>} \
+        --ncbi-build GRCh38 \
+        --ref-fasta ${<span class="variable">FASTA</span>} \
+        --vep-path ${<span class="variable">VEP_PATH</span>} \
+        --vep-data ${<span class="variable">VEP_DATA</span>} \
+        --cache-version ${<span class="variable">VEP_VERSION</span>} \
+        --vep-forks 12 \
+        --tumor-id ${<span class="variable">SAMPLE_NAME</span>} \
+        --vcf-tumor-id ${<span class="variable">SAMPLE_NAME</span>} \
+        --retain-info ${<span class="variable">fields</span>}
+
+    echo <span class="string">"Arquivo ${MAF_OUTPUT} gerado com sucesso em ${DIR_SAIDA_MAF}"</span>
+<span class="command">done</span>
+
+echo <span class="string">"--------------------------------------------------"</span>
+echo <span class="string">"Conversão concluída!"</span>
+          </code></pre>
+          </div>
+          <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script>
           </div>
         </div>
       </div>
@@ -704,6 +850,7 @@ echo "Processo de recalibração finalizado com sucesso!"
             <p><strong>Objetivo:</strong> Realizar análises com os dados processados.</p><br>
             <p><strong>Tarefa:</strong> Explore o software <strong>R</strong> e seus pacotes para realizar análises com os dados. Por exemplo, o pacote <a href="https://www.bioconductor.org/packages/release/bioc/html/maftools.html" target="_blank" rel="noopener"> maftools</a>
 permite gerar <a href="https://bioconductor.org/packages/release/bioc/vignettes/maftools/inst/doc/oncoplots.html"> <strong>oncoplots</strong></a> e outras visualizações genômicas.</p>
+            <p><strong>Agora utilize o software R!!</strong></p>
             <div class="code-container">
             <button class="copy-btn" onclick="copyCode(this)">📋</button>
             <pre><code>
@@ -729,7 +876,16 @@ permite gerar <a href="https://bioconductor.org/packages/release/bioc/vignettes/
 </code></pre>
           </div><br>
           <p><strong>💡 Dica:</strong> Consulte a documentação da pacote para conhecer os tipos de gráficos disponíveis e as opções de personalização.</p>
-
+            <script>
+              function copyCode(button) {
+                const code = button.nextElementSibling.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.innerText = '✅';
+                  setTimeout(() => button.innerText = '📋', 1500);
+                });
+              }
+            </script><br>
+            
         </div>
       </div>
     </div>
@@ -752,6 +908,7 @@ permite gerar <a href="https://bioconductor.org/packages/release/bioc/vignettes/
   </script>
 </body>
 </html>
+
 
 
 
