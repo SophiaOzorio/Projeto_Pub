@@ -131,6 +131,77 @@
     <!-- Accordion único para todas as práticas -->
     <div class="accordion" id="accordionAtividades">
 
+      <!-- Prática 0 -->
+      <div class="accordion-item border-0 shadow-sm rounded-3">
+        <h2 class="accordion-header">
+          <button class="accordion-button fw-semibold collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapseAtividade0"
+                  aria-expanded="false" aria-controls="collapseAtividade0">
+            PREPARAÇÃO DOS AMBIENTES CONDA
+          </button>
+        </h2>
+        <div id="collapseAtividade0" class="accordion-collapse collapse" data-bs-parent="#accordionAtividades">
+          <div class="accordion-body">
+            <p><strong>O que é ambiente conda?</strong></p>
+            <li> Um ambiente Conda é um espaço isolado dentro do gerenciador de pacotes Conda (usado no Anaconda ou Miniconda) que permite instalar e gerenciar versões específicas de pacotes, bibliotecas e dependências sem interferir em outros projetos.</li>
+            <p><strong>Como usar?</strong></p><br><br>
+    <p><strong>1. Instalar Conda</strong></p>
+  <ul>
+    <li>Baixar e instalar <strong>Anaconda</strong> (completo) ou <strong>Miniconda</strong> (mais leve).</li>
+    <li>Verificar instalação:
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode(this)">📋</button>
+        <pre><code>conda --version</code></pre>
+      </div>
+    </li>
+  </ul>
+
+  <p><strong>2. Criar um ambiente</strong></p>
+  <ul>
+    <li>Criar ambiente com nome específico e versão do Python desejada:
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode(this)">📋</button>
+        <pre><code>conda create -n meu_ambiente python=3.11</code></pre>
+      </div>
+    </li>
+  </ul>
+
+  <p><strong>3. Ativar e desativar ambiente</strong></p>
+  <ul>
+    <li>Ativar ambiente:
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode(this)">📋</button>
+        <pre><code>conda activate meu_ambiente</code></pre>
+      </div>
+    </li>
+    <li>Desativar ambiente:
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode(this)">📋</button>
+        <pre><code>conda deactivate</code></pre>
+      </div>
+    </li>
+  </ul>
+
+  <p><strong>4. Instalar pacotes</strong></p>
+  <ul>
+    <li>Instalar pacotes dentro do ambiente ativo:
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode(this)">📋</button>
+        <pre><code>conda install numpy pandas</code></pre>
+      </div>
+    </li>
+    <li>Instalar de canais específicos (ex.: conda-forge):
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode(this)">📋</button>
+        <pre><code>conda install -c conda-forge pacote</code></pre>
+      </div>
+    </li>
+  </ul>
+          </div>
+        </div>
+      </div>
+
+
       <!-- Prática 1 -->
       <div class="accordion-item border-0 shadow-sm rounded-3">
         <h2 class="accordion-header">
@@ -194,16 +265,7 @@
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
               <pre><code>/CAMINHO/PARA/O/EXECUTÁVEL/prefetch SRRXXXXXX SRRYYYYYY SRRZZZZZZ</code></pre>
             </div>
-
-            <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script><br>
+            
             <p><strong>2 -</strong> Após baixar os dados .SRA, é necessário transformá-los para o formato <strong>FASTQ</strong>. Para isso, use o seguinte comando (para dados paired-end):</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
@@ -211,15 +273,6 @@
               <p># Caso suas amostras sejam single-end não use o parâmetro "--splites-files"</p>
             </div>
 
-            <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script><br>
             <p><strong>💡 Dica:</strong> Faça pastas separadas para armazenar os outputs de passo da pipeline!</p>
           </div>
         </div>
@@ -242,34 +295,16 @@
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
               <pre><code>fastqc amostra_A_R1.fastq.gz amostra_A_R2.fastq.gz amostra_B_R1.fastq.gz amostra_B_R2.fastq.gz</code></pre>
-            </div>
+            </div><br>
 
-            <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script><br>
             <p><strong>2 -</strong> Após realizar o controle de qualidade com a ferramenta FastQC, utilizaremos a ferramenta MultiQC para integrar os resultados de todas as amostras em somente um gráfico. Para isso, execute o seguinte comando:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
               <pre><code>multiqc .</code></pre>
               <p># Vá para o diretório que contém os arquivos que você deseja analisar com o MultiQC.<br>
               # A entrada serão os arquivos gerados pelo FastQC ".fastq.gz"</p>
-            </div>
+            </div><br>
 
-            <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script><br>
             <p><strong>3 -</strong> Analise os resultados obtidos, com auxilio do material teórico na aba "Desenvolvimento", módulo "4 - Controle de Qualidade".</p>
 
           </div>
@@ -301,17 +336,8 @@
               <p># --length: Define o comprimento mínimo que uma leitura deve ter após a trimagem para ser mantida.</p>
               <p># --paired: Informa ao programa que os dados de entrada são paired-end.</p>
               <p># --retain_unpaired: Mantém leituras cujo par foi descartado em arquivos separados.</p>
-            </div>
+            </div><br>
 
-            <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script><br>
             <p><strong>2 -</strong> Caso suas amostras tenham sido trimadas, repita a atividade 4. O objetivo é garantir que a qualidade dos dados é adequada para dar continuidade à análise.</p>
           </div>
         </div>
@@ -337,17 +363,8 @@
               <p># Significado Parâmetros:</p>
               <p># -t: Define quantos núcleos de CPU (threads) usar.</p>
               <P># -M: Marca alinhamentos extras como Secundários, evitando possíveis problemas futuros com as próximas ferramentas.</P>
-            </div>
+            </div><br>
 
-            <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script><br>
             <p><strong>2 - </strong>A ferramenta de alinhamento BWA gera saídas no formato SAM. No entanto, para as etapas subsequentes da análise, é necessária a conversão desses arquivos para o formato BAM. Para isso, execute o seguinte comando:</p>
             <div class="code-container">
               <button class="copy-btn" onclick="copyCode(this)">📋</button>
@@ -356,16 +373,6 @@
                 <p># Ordenar o arquivo BAM</p>samtools sort -@ 24 -o [/CAMINHO/PARA/OUTPUTS/amostra.sorted.bam] [/CAMINHO/PARA/OS/ARQUIVOS/GERADOS/ANTERIORMENTE/amostra.bam]</code>
               </pre>
             </div>
-
-            <script>
-            function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script>
           </div>
         </div>
       </div>
@@ -405,17 +412,8 @@
 <span class="keyword">done</span>
 </code></pre>
         </div><br>
-        <p><strong>💡 Importante!</strong> Configure as variáveis: edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p>
+        <p><strong>💡 Importante!</strong> Configure as variáveis: edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p><br>
 
-            <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script><br>
           <p><strong>2 - </strong>Agora, iremos recalibrar a qualidade de bases com "GATK BaseRecalibrator", usando o seguinte script: </p>
           <div class="code-container">
           <button class="copy-btn" onclick="copyCode(this)">📋</button>
@@ -487,16 +485,6 @@ echo "Processo de recalibração finalizado com sucesso!"
 </code></pre><br>
           </div><br>
             <p><strong>💡 Importante!</strong> Configure as variáveis: edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p>
-
-            <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script>
           </div>
         </div>
       </div>
@@ -589,17 +577,6 @@ echo "Processo de recalibração finalizado com sucesso!"
 </code></pre>
         </div><br>
         <p><strong>💡 Importante!</strong> Configure as variáveis: edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p>
-
-            <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script>
-
           </div>
         </div>
       </div>
@@ -674,17 +651,7 @@ echo "Processo de recalibração finalizado com sucesso!"
 <span class="keyword">echo</span> <span class="string">"Processo de anotação concluído!"</span>
 </code></pre>
             </div><br>
-            <p><strong>💡 Importante!</strong> Configure as variáveis: edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p>
-
-            <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script><br>
+            <p><strong>💡 Importante!</strong> Configure as variáveis: edite a seção de configuração no topo do script para apontar para os diretórios e arquivos corretos do seu projeto.</p><br>
           <p><strong>2 - </strong>Após realizar a anotação, devemos separar as amostras em arquivos separados. Para isso, execute o script a seguir:</p>
           <div class="code-container">
           <button class="copy-btn" onclick="copyCode(this)">📋</button>
@@ -726,17 +693,7 @@ echo "Processo de recalibração finalizado com sucesso!"
 
 <span class="keyword">echo</span> <span class="string">"✅ Processo concluído! Os VCFs individuais foram salvos em: $OUTPUT_DIR"</span>
           </code></pre>
-          </div>
-            
-           <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script><br>
+          </div><br>         
             
           <p><strong>3 - </strong>Agora, temos os arquivos vcf anotados, com todas as informações para fazermos as análises. Porém alguns pacotes necessitam de formatos diferentes de arquivo, como o maftools. Caso você queira utilizar esse pacote, execute o script a seguir ainda no terminal do servidor:</p>
           <div class="code-container">
@@ -824,15 +781,6 @@ echo <span class="string">"--------------------------------------------------"</
 echo <span class="string">"Conversão concluída!"</span>
           </code></pre>
           </div>
-          <script>
-              function copyCode(button) {
-                const code = button.nextElementSibling.innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                  button.innerText = '✅';
-                  setTimeout(() => button.innerText = '📋', 1500);
-                });
-              }
-            </script>
           </div>
         </div>
       </div>
@@ -878,7 +826,14 @@ permite gerar <a href="https://bioconductor.org/packages/release/bioc/vignettes/
 </code></pre>
           </div><br>
           <p><strong>💡 Dica:</strong> Consulte a documentação do pacote para conhecer os tipos de gráficos disponíveis e as opções de personalização.</p>
-            <script>
+                      
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+    <script>
               function copyCode(button) {
                 const code = button.nextElementSibling.innerText;
                 navigator.clipboard.writeText(code).then(() => {
@@ -886,14 +841,8 @@ permite gerar <a href="https://bioconductor.org/packages/release/bioc/vignettes/
                   setTimeout(() => button.innerText = '📋', 1500);
                 });
               }
-            </script><br>
-            
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Scripts -->
+    </script>
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // Abre automaticamente a prática se houver hash na URL
@@ -910,6 +859,7 @@ permite gerar <a href="https://bioconductor.org/packages/release/bioc/vignettes/
   </script>
 </body>
 </html>
+
 
 
 
